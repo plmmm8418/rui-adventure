@@ -217,6 +217,10 @@ textarea,input[type=text],input[type=number]{font-family:inherit;font-size:18px;
 .clockpair div{width:min(36vw,150px,calc(100dvh - 420px));min-width:100px}
 .clockpair svg{width:100%;display:block}
 .shoprow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.vlist{display:flex;flex-direction:column;gap:6px}
+.vrow{border:2px solid #f0e2cc;background:#fff;border-radius:14px;padding:10px 12px;font-size:17px;font-weight:800;text-align:left;display:flex;justify-content:space-between;align-items:center}
+.vrow small{opacity:.55;font-weight:600}
+.vrow.on{border-color:var(--orange);background:#fff4e3}
 .zoomimg{max-width:100%;max-height:70dvh;border-radius:12px}
 </style>
 </head>
@@ -230,7 +234,7 @@ textarea,input[type=text],input[type=number]{font-family:inherit;font-size:18px;
   </div>
   <div class="row">
     <div class="seg" id="gradeSeg"><button data-g="1">一年級</button><button data-g="2">二年級</button><button data-g="3">挑戰🔥</button><button data-g="4">資優🏆</button></div>
-    <span class="starpill" id="homeStars">⭐ 0</span>
+    <button class="chip" id="voiceBtn">🔊 聲音</button><span class="starpill" id="homeStars">⭐ 0</span>
   </div>
   <div class="cards">
     <div class="sec">🔢 數學</div>
@@ -347,18 +351,33 @@ function paintStars() {
 
 /* ---------- 聲音 ---------- */
 let zhVoice = null, enVoice = null;
+// 挑「溫暖女聲」：美佳（台灣）優先，高音質／優化版加分；排除 Eddy、Grandpa 這類趣味或男聲
+const NOVELTY = /Eddy|Grandpa|Grandma|Reed|Rocko|Albert|Bad News|Bahh|Bells|Boing|Bubbles|Cellos|Good News|Jester|Organ|Superstar|Trinoids|Whisper|Wobble|Zarvox|Fred|Junior|Ralph|Aaron|Arthur|Daniel|Gordon|Rishi|Alex|Tom\b|Li-Mu|Sinji|善怡|Albert/i;
+const ZH_FAV = [/美佳|Mei-?Jia/i, /Google\s*國語|Google.*(臺灣|台灣|Taiwan)/i, /語舒|Yu-?shu/i, /婷婷|Ting-?Ting/i, /Microsoft.*(HsiaoChen|HsiaoYu|曉臻|曉雨)/i];
+const EN_FAV = [/Samantha/i, /Ava/i, /Zoe/i, /Allison/i, /Susan/i, /Google US English/i, /Microsoft.*(Aria|Jenny)/i, /Karen/i, /Moira/i, /Serena/i, /Kathy/i, /Nicky/i, /Tessa/i, /Catherine/i, /Martha/i];
+function voiceScore(v, zh) {
+  if (NOVELTY.test(v.name)) return -99;
+  let sc = 0;
+  if (/Premium|高音質|進階|頂級/i.test(v.name)) sc += 40; else if (/Enhanced|優化|增強|加強/i.test(v.name)) sc += 30;
+  if (zh) { if (/zh[-_](TW|Hant)/i.test(v.lang)) sc += 20; else if (/^zh/i.test(v.lang)) sc += 6; else return -99; }
+  else { if (/en[-_]US/i.test(v.lang)) sc += 12; else if (/^en/i.test(v.lang)) sc += 6; else return -99; }
+  const fav = zh ? ZH_FAV : EN_FAV, i = fav.findIndex(r => r.test(v.name));
+  if (i >= 0) sc += (fav.length - i) * 4; else if (/Flo|Sandy|Shelley/i.test(v.name)) sc -= 8;
+  return sc;
+}
+const rankVoices = zh => speechSynthesis.getVoices().map(v => ({ v, sc: voiceScore(v, zh) })).filter(x => x.sc > -50).sort((a, b) => b.sc - a.sc).map(x => x.v);
 function pickVoices() {
-  const vs = speechSynthesis.getVoices();
-  zhVoice = vs.find(v => /zh[-_]TW/i.test(v.lang)) || vs.find(v => /zh/i.test(v.lang)) || null;
-  enVoice = vs.find(v => /en[-_]US/i.test(v.lang) && /Samantha|Google|Female/i.test(v.name)) || vs.find(v => /en[-_]US/i.test(v.lang)) || vs.find(v => /^en/i.test(v.lang)) || null;
+  const vs = speechSynthesis.getVoices(); if (!vs.length) return;
+  zhVoice = vs.find(v => v.name === S.voiceZh) || rankVoices(true)[0] || null;
+  enVoice = vs.find(v => v.name === S.voiceEn) || rankVoices(false)[0] || null;
 }
 if ('speechSynthesis' in window) { pickVoices(); speechSynthesis.onvoiceschanged = pickVoices; }
 function speak(text, lang) {
   try {
     speechSynthesis.cancel();
     const u = new SpeechSynthesisUtterance(text);
-    u.lang = lang; const v = lang === 'en-US' ? enVoice : zhVoice; if (v) u.voice = v;
-    u.rate = lang === 'en-US' ? 0.8 : 0.95; u.pitch = 1.1;
+    u.lang = lang; const v = lang === 'en-US' ? enVoice : zhVoice; if (v) { u.voice = v; u.lang = v.lang; }
+    u.rate = lang === 'en-US' ? 0.85 : 0.92; u.pitch = 1.02; u.volume = 1;
     speechSynthesis.speak(u);
   } catch (e) {}
 }
@@ -1792,6 +1811,24 @@ function openStickers() {
   $('#stkGrid').innerHTML = STICKERS.map((s, i) => i < S.stickers ? `<div class="stk">${s}</div>` : `<div class="stk lock">${(i + 1) * 5}⭐</div>`).join('');
   $('#stkNext').textContent = S.stickers >= STICKERS.length ? '全部收集完成了！小睿闆超強！🏆' : `再 ${5 - S.stars % 5} 顆星，就能拿到下一張貼紙！`;
 }
+
+/* ---------- 選聲音 ---------- */
+$('#voiceBtn').onclick = () => {
+  const zh = rankVoices(true), en = rankVoices(false);
+  const row = (v, lang) => `<button class="vrow ${(lang === 'zh' ? zhVoice : enVoice) === v ? 'on' : ''}" data-l="${lang}" data-n="${esc(v.name)}">${esc(v.name)}<small>${esc(v.lang)}</small></button>`;
+  const m = openModal(`<h2>🔊 選一個好聽的聲音</h2><p class="small">點一下就會試聽，選好自動記住</p>
+    <p style="text-align:left;margin:6px 0"><b>中文</b></p><div class="vlist">${zh.slice(0, 8).map(v => row(v, 'zh')).join('') || '<p class="small">這台裝置沒有中文聲音</p>'}</div>
+    <p style="text-align:left;margin:10px 0 6px"><b>English</b></p><div class="vlist">${en.slice(0, 8).map(v => row(v, 'en')).join('')}</div>
+    <p class="small" style="text-align:left">💡 想要更溫暖自然的聲音：iPad／iPhone 到「設定 → 輔助使用 → 朗讀內容 → 聲音 → 中文（台灣）→ 美佳」，下載「高音質」或「優化」版本，再回來這裡選它。</p>
+    <div class="mbtns"><button class="mbtn" id="vOk">好了</button></div>`);
+  m.querySelectorAll('.vrow').forEach(b => b.onclick = () => {
+    const v = speechSynthesis.getVoices().find(x => x.name === b.dataset.n); if (!v) return;
+    if (b.dataset.l === 'zh') { zhVoice = v; S.voiceZh = v.name; say('小睿闆你好，我是你的學習夥伴，今天一起來冒險吧！'); }
+    else { enVoice = v; S.voiceEn = v.name; sayEn("Hi Rui! Let's learn English together!"); }
+    save(); m.querySelectorAll(`.vrow[data-l="${b.dataset.l}"]`).forEach(x => x.classList.toggle('on', x === b));
+  });
+  m.querySelector('#vOk').onclick = closeModal;
+};
 
 /* ---------- 開始 ---------- */
 const hr = new Date().getHours();
