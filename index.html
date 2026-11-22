@@ -180,6 +180,43 @@ textarea,input[type=text],input[type=number]{font-family:inherit;font-size:18px;
 .coin.bill{border-radius:10px;width:92px;height:52px}
 .tray .coin.bill{width:70px;height:40px}
 .b100{background:#ef9aa5;color:#6b1622}.b500{background:#d9a066;color:#5a3010}.b1000{background:#8fb4e3;color:#123d6b}
+.sec{grid-column:1/-1;font-size:18px;font-weight:900;margin:6px 2px -4px;opacity:.8}
+.seg button{padding:7px 11px}
+.idiom{font-size:clamp(40px,11vw,64px);font-weight:900;letter-spacing:6px;font-family:"Kaiti TC","BiauKai","PingFang TC",serif}
+.idiom .blank,.spell .blank{color:var(--pink)}
+.passage{background:#fffdf5;border:3px solid #f1dfb8;border-radius:18px;padding:12px 16px;font-size:clamp(17px,4.4vw,21px);font-weight:700;line-height:1.75;max-width:640px;text-align:left}
+.speedbar{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.speedbar span{background:#fff;border-radius:99px;padding:6px 14px;font-weight:900;font-size:18px;box-shadow:0 3px 0 #ead8bd}
+.ansbox{min-width:160px;min-height:58px;background:#fff;border:3px dashed #ffc36b;border-radius:16px;font-size:38px;font-weight:900;text-align:center;padding:2px 14px}
+.pad{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:min(86vw,330px)}
+.pk{border:none;background:#fff;border-radius:14px;font-size:24px;font-weight:900;padding:10px 0;box-shadow:0 4px 0 #ead8bd}
+.pk:active{transform:translateY(3px);box-shadow:0 1px 0 #ead8bd}
+.sdk{display:grid;width:min(90vw,400px,calc(100dvh - 330px));min-width:240px;aspect-ratio:1;border:4px solid var(--ink);border-radius:10px;overflow:hidden;background:#fff}
+.sc{border:1px solid #d9c9b0;background:#fff;font-size:clamp(20px,6vw,32px);font-weight:900;color:var(--blue);padding:0}
+.sc.given{color:var(--ink);background:#f6efe3}
+.sc.sel{background:#fff3c4}
+.sc.bad{color:var(--red);background:#ffe1df}
+.sc.hinted{background:#fff1a8}
+.sc.br{border-right:3px solid var(--ink)}
+.sc.bb{border-bottom:3px solid var(--ink)}
+.sdkpad{width:min(92vw,420px)}
+.mem{display:grid;gap:8px;width:min(92vw,460px,calc((100dvh - 280px)*1.1))}
+.mc{aspect-ratio:1;border:none;border-radius:14px;background:linear-gradient(135deg,#ff9fc4,#9b6dff);box-shadow:0 4px 0 rgba(0,0,0,.15);font-size:clamp(14px,4vw,22px);font-weight:900;padding:2px;position:relative;color:var(--ink)}
+.mc .face{display:none;word-break:break-all;line-height:1.2}
+.mc .back{font-size:26px}
+.mc.up,.mc.ok,.mc.peek{background:#fff}
+.mc.up .face,.mc.ok .face,.mc.peek .face{display:block}
+.mc.up .back,.mc.ok .back,.mc.peek .back{display:none}
+.mc.ok{background:#d4f7e2;opacity:.75}
+.built{min-height:56px;width:min(92vw,560px);background:#fff;border:3px dashed #9be3df;border-radius:16px;padding:10px;font-family:"Avenir Next",system-ui,sans-serif;font-size:24px;font-weight:800;text-align:center}
+.bw{display:inline-block;margin:2px 4px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:560px}
+.chip-w{border:none;background:var(--teal);color:#fff;border-radius:14px;padding:10px 16px;font-family:"Avenir Next",system-ui,sans-serif;font-size:22px;font-weight:800;box-shadow:0 4px 0 #15948f}
+.chip-w:disabled{opacity:.25}
+.clockpair{display:flex;align-items:center;gap:10px;font-size:30px}
+.clockpair div{width:min(36vw,150px,calc(100dvh - 420px));min-width:100px}
+.clockpair svg{width:100%;display:block}
+.shoprow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .zoomimg{max-width:100%;max-height:70dvh;border-radius:12px}
 </style>
 </head>
@@ -192,17 +229,27 @@ textarea,input[type=text],input[type=number]{font-family:inherit;font-size:18px;
     <div class="bubble" id="greet">小睿闆，今天想玩什麼？<small>每拿 5 顆星就送一張貼紙喔！</small></div>
   </div>
   <div class="row">
-    <div class="seg" id="gradeSeg"><button data-g="1">一年級</button><button data-g="2">二年級</button><button data-g="3">挑戰🔥</button></div>
+    <div class="seg" id="gradeSeg"><button data-g="1">一年級</button><button data-g="2">二年級</button><button data-g="3">挑戰🔥</button><button data-g="4">資優🏆</button></div>
     <span class="starpill" id="homeStars">⭐ 0</span>
   </div>
   <div class="cards">
-    <button class="card" style="background:#ff9f43" data-go="mole"><span class="ic">🔨</span>打地鼠算數<small>數學・計算</small></button>
-    <button class="card" style="background:#e8743b" data-go="detective"><span class="ic">🕵️</span>數學小偵探<small>數學・應用題</small></button>
+    <div class="sec">🔢 數學</div>
+    <button class="card" style="background:#ff9f43" data-go="mole"><span class="ic">🔨</span>打地鼠算數<small>計算・乘除</small></button>
+    <button class="card" style="background:#e8743b" data-go="detective"><span class="ic">🕵️</span>數學小偵探<small>應用題</small></button>
+    <button class="card" style="background:#c0392b" data-go="think"><span class="ic">🧩</span>數學思考王<small>資優思考題</small></button>
+    <button class="card" style="background:#f39c12" data-go="speed"><span class="ic">⚡</span>心算快手<small>60 秒挑戰</small></button>
+    <button class="card" style="background:#6c5ce7" data-go="sudoku"><span class="ic">🔢</span>數獨小達人<small>邏輯推理</small></button>
     <button class="card" style="background:#4d9de0" data-go="clock"><span class="ic">⏰</span>時鐘轉轉樂<small>看時間・算時間</small></button>
     <button class="card" style="background:#2ecc71" data-go="shop"><span class="ic">🏪</span>小小商店<small>付錢・找錢</small></button>
-    <button class="card" style="background:#9b6dff" data-go="word"><span class="ic">📖</span>國語知識王<small>注音・量詞・部首</small></button>
-    <button class="card" style="background:#1fbfb8" data-go="english"><span class="ic">🔤</span>英文小探險<small>單字・拼字・對話</small></button>
-    <button class="card" style="background:#3f8f5a" data-go="know"><span class="ic">🌍</span>知識大冒險<small>自然・生活・台灣</small></button>
+    <div class="sec">📖 國語</div>
+    <button class="card" style="background:#9b6dff" data-go="word"><span class="ic">📖</span>國語知識王<small>注音・多音字・部首</small></button>
+    <button class="card" style="background:#a0522d" data-go="idiom"><span class="ic">📜</span>成語與閱讀<small>成語故事・閱讀測驗</small></button>
+    <div class="sec">🔤 英文</div>
+    <button class="card" style="background:#1fbfb8" data-go="english"><span class="ic">🔤</span>英文小探險<small>單字・句子・閱讀</small></button>
+    <div class="sec">🌍 知識與記憶</div>
+    <button class="card" style="background:#3f8f5a" data-go="know"><span class="ic">🌍</span>知識大冒險<small>自然・世界・台灣</small></button>
+    <button class="card" style="background:#e84393" data-go="memory"><span class="ic">🃏</span>記憶翻牌<small>乘法・英文・國旗</small></button>
+    <div class="sec">🧰 工具</div>
     <button class="card" style="background:#ff6b9a" data-go="board"><span class="ic">🖍️</span>白板教室<small>寫寫畫畫・可以提問</small></button>
     <button class="card" style="background:#f5b82e" data-go="stickers"><span class="ic">🌟</span>我的貼紙本<small id="stkSub">收集 0 張</small></button>
     <button class="card" style="background:#8d6e63" data-go="mail"><span class="ic">📮</span>問題信箱<small>爸爸回答你</small><span class="badge" id="mailBadge">1</span></button>
@@ -283,7 +330,8 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': 
 const KEY = 'xr-learn-v1';
 const S = Object.assign({ grade: 1, stars: 0, stickers: 0, mailSeen: 0 }, JSON.parse(localStorage.getItem(KEY) || '{}'));
 const save = () => localStorage.setItem(KEY, JSON.stringify(S));
-const STICKERS = ['🦖','🚀','🐬','🦁','🍩','🏎️','🐙','🦄','⚽','🐲','🍕','🛸','🐳','🎸','🦊','🏰','🐝','🌋','🤖','🦉','🍔','🚁','🐢','👑','🦈','🎡','🐧','🏆'];
+if (S.v !== 2) { S.v = 2; S.grade = 4; save(); } // 2026-11-22 起預設資優
+const STICKERS = ['🦖','🚀','🐬','🦁','🍩','🏎️','🐙','🦄','⚽','🐲','🍕','🛸','🐳','🎸','🦊','🏰','🐝','🌋','🤖','🦉','🍔','🚁','🐢','👑','🦈','🎡','🐧','🏆','🦕','🛰️','🧙','🦩','🐉','🎯','🧩','🦚','🪐','🦭','🏄','🎹','🦜','🌠','💎','🥇'];
 function addStar() {
   S.stars++;
   let fresh = null;
@@ -354,7 +402,7 @@ function show(id) {
   if (id === 'home') { attachRui($('#homeRui')); updateMailBadge(); }
   if (id === 'game') attachRui($('#gameRui'));
 }
-function goHome() { clearTimeout(G.timer); speechSynthesis?.cancel?.(); closeModal(); show('home'); }
+function goHome() { clearTimeout(G.timer); clearInterval(G.iv); speechSynthesis?.cancel?.(); closeModal(); show('home'); }
 $$('[data-home]').forEach(b => b.onclick = goHome);
 $$('[data-go]').forEach(b => b.onclick = () => {
   const k = b.dataset.go;
@@ -364,7 +412,7 @@ $$('[data-go]').forEach(b => b.onclick = () => {
   else if (k === 'mail') openMail();
 });
 function paintGrade() { $$('#gradeSeg button').forEach(b => b.classList.toggle('on', +b.dataset.g === S.grade)); }
-$$('#gradeSeg button').forEach(b => b.onclick = () => { S.grade = +b.dataset.g; save(); paintGrade(); say(['', '一年級模式', '二年級模式', '挑戰模式！題目會很難喔'][S.grade]); });
+$$('#gradeSeg button').forEach(b => b.onclick = () => { S.grade = +b.dataset.g; save(); paintGrade(); say(['', '一年級模式', '二年級模式', '挑戰模式！題目會很難喔', '資優模式！準備好動腦了嗎？'][S.grade]); });
 
 /* ---------- 彈窗 ---------- */
 let curRec = null;
@@ -388,9 +436,10 @@ function startGame(kind) {
 }
 function nextQ() {
   clearTimeout(G.timer);
-  if (G.i >= TOTAL) return finish();
+  const total = GAMES[G.kind].total || TOTAL;
+  if (G.i >= total) return finish();
   G.i++; G.lock = false;
-  $('#gProg').textContent = `${G.i} / ${TOTAL}`;
+  $('#gProg').textContent = `${G.i} / ${total}`;
   GAMES[G.kind].question();
 }
 function correct(o) {
@@ -415,8 +464,9 @@ function wrong(el) {
   if (el) { el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }
 }
 function finish() {
-  cheerRui();
-  const m = openModal(`<div class="big">🎉</div><h2>完成了！</h2><p>這次拿到 <b>${G.earned}</b> 顆 ⭐，全部有 ${S.stars} 顆！</p>
+  cheerRui(); clearInterval(G.iv);
+  const sum = GAMES[G.kind].summary?.();
+  const m = openModal(`${sum || `<div class="big">🎉</div><h2>完成了！</h2><p>這次拿到 <b>${G.earned}</b> 顆 ⭐，全部有 ${S.stars} 顆！</p>`}
     ${G.fresh.length ? `<p>獲得新貼紙：<span style="font-size:44px">${G.fresh.join(' ')}</span></p>` : `<p class="small">再 ${5 - S.stars % 5} 顆星就有新貼紙！</p>`}
     <div class="mbtns"><button class="mbtn" id="again">🔁 再玩一次</button><button class="mbtn alt" id="toHome">🏠 回冒險地圖</button></div>`);
   say(G.fresh.length ? '太厲害了！你拿到新貼紙了！' : '太厲害了！完成挑戰！');
@@ -424,10 +474,15 @@ function finish() {
   m.querySelector('#toHome').onclick = goHome;
 }
 $('#gSay').onclick = () => GAMES[G.kind].read();
+document.addEventListener('keydown', e => {
+  if (G.kind !== 'speed' || !$('#game').classList.contains('active') || $('#mb').classList.contains('show')) return;
+  if (/^[0-9]$/.test(e.key)) GAMES.speed.key(e.key); else if (e.key === 'Backspace') GAMES.speed.key('⌫'); else if (e.key === 'Enter') GAMES.speed.key('OK');
+});
 $('#gHint').onclick = () => {
   const g = GAMES[G.kind];
+  if (g.noHint) { const m = openModal('<h2>⚡ 限時挑戰</h2><p>這一關沒有提示，靠自己的實力！</p><div class="mbtns"><button class="mbtn" id="hOk">衝啊！</button></div>'); m.querySelector('#hOk').onclick = closeModal; return; }
   const m = openModal(`<h2>🤔 小提示</h2>${g.hint()}<div class="mbtns"><button class="mbtn green" id="hOk">👍 我懂了</button><button class="mbtn pink" id="hDad">👨 還是不懂，問爸爸</button></div>`);
-  m.querySelector('#hOk').onclick = closeModal;
+  m.querySelector('#hOk').onclick = () => { closeModal(); g.afterHint?.(); };
   m.querySelector('#hDad').onclick = () => openAsk({ text: `在「${g.title}」這題不會：${g.desc()}`, withBoard: false });
 };
 
@@ -456,27 +511,30 @@ function makeMath() {
   const g = S.grade;
   const type = g === 1 ? pick(['add', 'add', 'sub', 'sub', 'missadd', 'misssub', 'chain'])
     : g === 2 ? pick(['add3', 'sub3', 'mul', 'mul', 'missmul', 'mix', 'missadd'])
-    : pick(['add3', 'sub3', 'missmul', 'mix', 'mix', 'miss3', 'chain3', 'mul']);
+    : g === 3 ? pick(['add3', 'sub3', 'missmul', 'mix', 'mix', 'miss3', 'chain3', 'mul'])
+    : pick(['add3', 'sub3', 'missmul', 'mix', 'div', 'div', 'mul2', 'mul2', 'miss3', 'chain3']);
   const r = (text, ans, kind, o = {}) => ({ text, ans, kind, ...o });
   if (type === 'add') { const a = rand(18, 68), b = rand(13, 99 - a); return r(`${a} + ${b}`, a + b, 'add', { a, b, op: '+' }); }
   if (type === 'sub') { const a = rand(31, 99), b = rand(12, a - 6); return r(`${a} − ${b}`, a - b, 'sub', { a, b, op: '−' }); }
   if (type === 'missadd') { const big = g > 1; const b = rand(6, big ? 299 : 39), c = rand(b + 8, big ? 899 : 99); return r(`□ + ${b} = ${c}`, c - b, 'missadd', { b, c }); }
   if (type === 'misssub') { const a = rand(35, 99), c = rand(6, a - 8); return r(`${a} − □ = ${c}`, a - c, 'misssub', { a, c }); }
   if (type === 'chain') { const a = rand(15, 45), b = rand(12, 40), c = rand(8, a + b - 5); return r(`${a} + ${b} − ${c}`, a + b - c, 'chain', { a, b, c }); }
-  if (type === 'add3') { const a = rand(125, 650), b = rand(g === 3 ? 160 : 38, 990 - a); return r(`${a} + ${b}`, a + b, 'add', { a, b, op: '+' }); }
-  if (type === 'sub3') { const a = rand(g === 3 ? 400 : 200, 999), b = rand(g === 3 ? 158 : 36, a - 25); return r(`${a} − ${b}`, a - b, 'sub', { a, b, op: '−' }); }
+  if (type === 'add3') { const a = rand(125, 650), b = rand(g >= 3 ? 160 : 38, 990 - a); return r(`${a} + ${b}`, a + b, 'add', { a, b, op: '+' }); }
+  if (type === 'sub3') { const a = rand(g >= 3 ? 400 : 200, 999), b = rand(g >= 3 ? 158 : 36, a - 25); return r(`${a} − ${b}`, a - b, 'sub', { a, b, op: '−' }); }
   if (type === 'mul') { const a = rand(3, 9), b = rand(3, 9); return r(`${a} × ${b}`, a * b, 'mul', { a, b }); }
   if (type === 'missmul') { const a = rand(3, 9), b = rand(3, 9); return r(`□ × ${b} = ${a * b}`, a, 'missmul', { a, b }); }
   if (type === 'mix') {
-    const a = rand(3, 9), b = rand(3, 9), plus = Math.random() < .55, c = plus ? rand(4, g === 3 ? 60 : 25) : rand(3, a * b - 2);
+    const a = rand(3, 9), b = rand(3, 9), plus = Math.random() < .55, c = plus ? rand(4, g >= 3 ? 60 : 25) : rand(3, a * b - 2);
     return r(`${a} × ${b} ${plus ? '+' : '−'} ${c}`, plus ? a * b + c : a * b - c, 'mix', { a, b, c, plus });
   }
+  if (type === 'div') { const a = rand(3, 9), b = rand(3, 9); return r(`${a * b} ÷ ${b}`, a, 'div', { a, b }); }
+  if (type === 'mul2') { const a = rand(12, 39), b = rand(2, 6); return r(`${a} × ${b}`, a * b, 'mul2', { a, b }); }
   if (type === 'miss3') { const b = rand(120, 480), c = rand(b + 120, 980); return r(`□ + ${b} = ${c}`, c - b, 'missadd', { b, c }); }
   const a = rand(150, 500), b = rand(120, 400), c = rand(100, a + b - 50);
   return r(`${a} + ${b} − ${c}`, a + b - c, 'chain', { a, b, c });
 }
 function mathOptions(p) {
-  if (p.kind === 'missmul') return shuffle([p.ans, ...shuffle([p.ans + 1, p.ans - 1, p.ans + 2, p.ans - 2].filter(v => v > 0)).slice(0, 2)]);
+  if (p.kind === 'missmul' || p.kind === 'div') return shuffle([p.ans, ...shuffle([p.ans + 1, p.ans - 1, p.ans + 2, p.ans - 2].filter(v => v > 0)).slice(0, 2)]);
   const s = new Set(), big = p.ans >= 100;
   const cand = shuffle([1, -1, 10, -10, 2, -2, big ? 100 : 11, big ? -100 : -9].map(d => p.ans + d));
   for (const n of cand) { if (n >= 0 && n !== p.ans) s.add(n); if (s.size === 2) break; }
@@ -502,6 +560,8 @@ function mathHint(p) {
   if (p.kind === 'chain') return `<p>從左邊算到右邊：</p><p>先算 ${p.a} + ${p.b} = ${peek(p.a + p.b)}</p><p>再減 ${p.c} = ${peek(p.a + p.b - p.c)}</p>`;
   if (p.kind === 'mul') return `<p>${p.a} × ${p.b} 就是「${p.a} 個 ${p.b}」：</p><div class="dots">${Array.from({ length: p.a }, () => `<span class="grp">${dots(p.b, 'b')}</span>`).join('')}</div><p>${Array(p.a).fill(p.b).join(' + ')} = ${peek(p.a * p.b)}</p>`;
   if (p.kind === 'missmul') return `<p>背背看 ${p.b} 的乘法，哪一行等於 ${p.a * p.b}？</p>${Array.from({ length: 9 }, (_, i) => `<p style="margin:2px">${i + 1} × ${p.b} = ${(i + 1) * p.b}</p>`).join('')}`;
+  if (p.kind === 'div') return `<p>${p.a * p.b} ÷ ${p.b}，就是問「幾個 ${p.b} 合起來是 ${p.a * p.b}？」</p><p>想乘法：□ × ${p.b} = ${p.a * p.b}</p>${Array.from({ length: 9 }, (_, i) => `<p style="margin:2px">${i + 1} × ${p.b} = ${(i + 1) * p.b}</p>`).join('')}`;
+  if (p.kind === 'mul2') { const t = Math.floor(p.a / 10) * 10, o = p.a % 10; return `<p>把 ${p.a} 拆成 ${t} 和 ${o}：</p><p>${t} × ${p.b} = ${peek(t * p.b)}</p><p>${o} × ${p.b} = ${peek(o * p.b)}</p><p>加起來 = ${peek(p.ans)}</p>`; }
   return `<p>口訣：<b>先乘、後${p.plus ? '加' : '減'}</b>！</p><p>先算 ${p.a} × ${p.b} = ${peek(p.a * p.b)}</p><p>再${p.plus ? '加' : '減'} ${p.c} = ${peek(p.ans)}</p>`;
 }
 
@@ -529,6 +589,10 @@ const WP = [
   [3, () => { const d = rand(25, 35), y = rand(3, 9); return { t: `小睿闆今年 7 歲，爸爸比他大 ${d} 歲。再過 ${y} 年，爸爸幾歲？`, ans: 7 + d + y, eq: `7 + ${d} = ${7 + d}，${7 + d} + ${y} = ${7 + d + y}`, u: '歲', tip: '先算爸爸今年幾歲，再加上過了幾年' }; }],
   [3, () => { const n = rand(15, 40), k = rand(3, 12); return { t: `${n} 個小朋友排成一排，小睿闆從前面數是第 ${k} 個，從後面數是第幾個？`, ans: n - k + 1, eq: `${n} − ${k} + 1 = ${n - k + 1}`, u: '個', tip: '他後面有 ' + n + ' − ' + k + ' 個人，再加上他自己 1 個' }; }],
   [3, () => { const n = rand(5, 10), gap = pick([2, 3, 5]); return { t: `一條小路的一邊種樹，從頭到尾一共種了 ${n} 棵，每兩棵中間隔 ${gap} 公尺，這條路長幾公尺？`, ans: (n - 1) * gap, eq: `${n} − 1 = ${n - 1}（間隔數），${n - 1} × ${gap} = ${(n - 1) * gap}`, u: '公尺', tip: '畫畫看：兩頭都有種，間隔數比樹少 1' }; }],
+  [4, () => { const a = rand(12, 45), b = rand(5, 20); return { t: `一包餅乾 ${a} 元，一瓶果汁比餅乾貴 ${b} 元。買一包餅乾和一瓶果汁，一共要多少元？`, ans: a + a + b, eq: `${a} + ${b} = ${a + b}（果汁），${a} + ${a + b} = ${2 * a + b}`, u: '元', tip: '先算果汁多少錢，再把兩樣加起來' }; }],
+  [4, () => { const x = rand(15, 30), y = rand(3, 10), n = x + x + y + rand(10, 60); return { t: `一本書有 ${n} 頁，小睿闆第一天看了 ${x} 頁，第二天看的比第一天多 ${y} 頁。還剩幾頁沒看？`, ans: n - x - (x + y), eq: `${x} + ${y} = ${x + y}（第二天），${n} − ${x} − ${x + y} = ${n - 2 * x - y}`, u: '頁', tip: '三步驟：先算第二天看幾頁，再從全部扣掉兩天看的' }; }],
+  [4, () => { const m = rand(2, 4) * 100, k = rand(2, 5), r = rand(10, 90); return { t: `操場跑一圈是 ${m} 公尺。小睿闆跑了 ${k} 圈又 ${r} 公尺，一共跑了幾公尺？`, ans: m * k + r, eq: `${m} × ${k} + ${r} = ${m * k + r}`, u: '公尺', tip: '先算整圈的（乘法），再加多跑的' }; }],
+  [4, () => { const p = rand(4, 9), c = rand(3, 6), k = rand(2, 4); return { t: `每盒彩色筆有 ${p} 支，老師買了 ${c} 盒，要平均分給 ${k} 組，每組最多分到幾支？`, ans: Math.floor(p * c / k), eq: `${p} × ${c} = ${p * c}，${p * c} ÷ ${k} = ${Math.floor(p * c / k)}${(p * c) % k ? ` 餘 ${(p * c) % k}` : ''}`, u: '支', tip: '先算總共幾支（乘法），再平均分（除法）' }; }],
   [3, () => { const a = rand(6, 9), b = rand(6, 9), c = rand(2, 5), d = rand(2, 5); return { t: `文具店有 ${a} 盒紅筆，每盒 ${b} 支；還有 ${c} 盒藍筆，每盒 ${d} 支。紅筆比藍筆多幾支？`, ans: a * b - c * d, eq: `${a} × ${b} = ${a * b}，${c} × ${d} = ${c * d}，${a * b} − ${c * d} = ${a * b - c * d}`, u: '支', tip: '先分別算紅筆、藍筆各幾支，再相減' }; }]
 ];
 
@@ -727,6 +791,156 @@ function draw(name, list) {
   return bags[name].pop();
 }
 
+/* ---------- 數學思考王（資優題） ---------- */
+const DAYS = ['日', '一', '二', '三', '四', '五', '六'];
+const THINK = [
+  [1, () => { const d = rand(2, 9), a = rand(1, 20), dn = Math.random() < .3, st = dn ? a + d * 6 : a, s = [0, 1, 2, 3, 4].map(i => st + (dn ? -1 : 1) * d * i); return { q: `找規律：${s.slice(0, 4).join('、')}、？`, ans: s[4], ex: `每次都${dn ? '減' : '加'} ${d}，所以 ${s[3]} ${dn ? '−' : '+'} ${d} = ${s[4]}` }; }],
+  [1, () => { const n = rand(3, 9); return { q: `把一根木頭鋸成 ${n} 段，要鋸幾次？`, ans: n - 1, u: '次', ex: `鋸 1 次變 2 段、鋸 2 次變 3 段……段數永遠比次數多 1，所以要鋸 ${n - 1} 次。` }; }],
+  [1, () => { const n = pick([10, 20, 30, 40, 50]); return { q: `從 1 數到 ${n}，一共有幾個雙數（偶數）？`, ans: n / 2, u: '個', ex: `2、4、6……每兩個數就有一個雙數，${n} ÷ 2 = ${n / 2} 個。` }; }],
+  [1, () => { const nm = shuffle(['小睿闆', '小明', '小華', '小美']).slice(0, 3), ask = Math.random() < .5; return { q: `${nm[0]}比${nm[1]}高，${nm[1]}比${nm[2]}高。誰${ask ? '最矮' : '最高'}？`, ans: ask ? nm[2] : nm[0], opts: shuffle(nm).map(x => ({ label: x, val: x })), ex: `由高到矮排排看：${nm.join(' ＞ ')}。` }; }],
+  [1, () => { const pat = pick([['🔴', '🔵'], ['🔴', '🔵', '🔵'], ['⭐', '🌙', '🌙', '⭐'], ['🍎', '🍌', '🍇'], ['🐶', '🐱', '🐱', '🐭']]), L = pat.length, n = rand(L + 3, L * 2 + 2), seq = Array.from({ length: n }, (_, i) => pat[i % L]), ans = pat[n % L];
+    const opts = [...new Set(pat)]; for (const x of ['🟢', '🐸']) if (opts.length < 3) opts.push(x);
+    return { q: `找規律，❓ 是什麼？<br><span style="font-size:30px;letter-spacing:2px">${seq.join('')}❓</span>`, ans, opts: shuffle(opts).map(x => ({ label: x, val: x, cls: 'emo' })), ex: `${pat.join('')} 是一組，一直重複。` }; }],
+  [2, () => { const a = rand(1, 9), d1 = rand(2, 4), d2 = rand(5, 8), s = [a]; for (let i = 1; i < 6; i++) s.push(s[i - 1] + (i % 2 ? d1 : d2)); return { q: `找規律：${s.slice(0, 5).join('、')}、？`, ans: s[5], ex: `輪流「加 ${d1}、加 ${d2}」，下一步是加 ${d1}：${s[4]} + ${d1} = ${s[5]}` }; }],
+  [2, () => { const big = rand(9, 40), small = rand(2, big - 3), sum = big + small, diff = big - small, askBig = Math.random() < .6; return { q: `兩個數加起來是 ${sum}，大的比小的多 ${diff}。${askBig ? '大' : '小'}的數是多少？`, ans: askBig ? big : small, ex: askBig ? `（和 ＋ 差）÷ 2 ＝（${sum} ＋ ${diff}）÷ 2 ＝ ${big}` : `（和 − 差）÷ 2 ＝（${sum} − ${diff}）÷ 2 ＝ ${small}` }; }],
+  [2, () => { const d = rand(2, 6), y = rand(3, 10); return { q: `哥哥比弟弟大 ${d} 歲。${y} 年後，哥哥比弟弟大幾歲？`, ans: d, u: '歲', ex: `陷阱題！兩個人每年都一起長大 1 歲，年齡差永遠不變，還是 ${d} 歲。` }; }],
+  [2, () => { const n = rand(3, 7), m = rand(10, 20); return { q: `從 1 樓走到 ${n} 樓，每一層樓梯有 ${m} 階，一共要走幾階？`, ans: (n - 1) * m, u: '階', ex: `1 樓到 ${n} 樓只爬了 ${n - 1} 層，不是 ${n} 層！${n - 1} × ${m} = ${(n - 1) * m} 階。` }; }],
+  [2, () => { const a = rand(2, 5), b = rand(2, 4); return { q: `小睿闆有 ${a} 件上衣、${b} 件褲子。一件上衣配一件褲子，一共有幾種穿法？`, ans: a * b, u: '種', ex: `每件上衣都能配 ${b} 件褲子：${a} × ${b} = ${a * b} 種。` }; }],
+  [2, () => { const m = rand(1, 5), c = rand(5, 95); return { q: `${m} 公尺 ${c} 公分 = 幾公分？`, ans: m * 100 + c, u: '公分', ex: `1 公尺 = 100 公分，${m} 公尺 = ${m * 100} 公分，再加 ${c} 公分 = ${m * 100 + c} 公分。` }; }],
+  [2, () => { const v = rand(23, 99); let l = v; const parts = []; for (const x of [50, 10, 5, 1]) while (l >= x) { l -= x; parts.push(x); } return { q: `用 1、5、10、50 元硬幣剛好湊出 ${v} 元，最少要幾個硬幣？`, ans: parts.length, u: '個', ex: `先用最大的硬幣：${parts.join(' + ')} = ${v}，一共 ${parts.length} 個。` }; }],
+  [2, () => { const h = rand(1, 9), t = rand(0, 9), o = rand(0, 9); return { q: `百位是 ${h}、十位是 ${t}、個位是 ${o}，這個數是多少？`, ans: h * 100 + t * 10 + o, ex: `${h} 個一百、${t} 個十、${o} 個一 → ${h * 100 + t * 10 + o}` }; }],
+  [3, () => { const r = pick([2, 3]), a = rand(1, 3), s = [0, 1, 2, 3, 4].map(i => a * r ** i); return { q: `找規律：${s.slice(0, 4).join('、')}、？`, ans: s[4], ex: `每次都乘以 ${r}：${s[3]} × ${r} = ${s[4]}` }; }],
+  [3, () => { const r = rand(1, 5), c = rand(1, 6), n = r + c, L = 4 * r + 2 * c, askR = Math.random() < .6; return { q: `籠子裡有雞和兔子，一共 ${n} 個頭、${L} 隻腳。${askR ? '兔子' : '雞'}有幾隻？`, ans: askR ? r : c, u: '隻', ex: `假設全部都是雞：${n} × 2 = ${n * 2} 隻腳，比 ${L} 少了 ${L - n * 2} 隻。每把一隻雞換成兔子會多 2 隻腳，所以兔子有 ${L - n * 2} ÷ 2 = ${r} 隻，雞有 ${n} − ${r} = ${c} 隻。（這就是有名的「雞兔同籠」！）` }; }],
+  [3, () => { const n = rand(3, 8), t = rand(2, 5); return { q: `把一根木頭鋸成 ${n} 段，每鋸一次要 ${t} 分鐘，一共要幾分鐘？`, ans: (n - 1) * t, u: '分鐘', ex: `鋸成 ${n} 段只要鋸 ${n - 1} 次，${n - 1} × ${t} = ${(n - 1) * t} 分鐘。` }; }],
+  [3, () => { const k = rand(3, 6); return { q: `${k} 個小朋友見面，每兩個人都要握一次手，一共握幾次？`, ans: k * (k - 1) / 2, u: '次', ex: `第 1 個人跟其他 ${k - 1} 人握，第 2 個人再跟還沒握過的 ${k - 2} 人握……：${Array.from({ length: k - 1 }, (_, i) => k - 1 - i).join(' + ')} = ${k * (k - 1) / 2} 次。` }; }],
+  [3, () => { const n = pick([10, 10, 20, 8, 12, 100]); return { q: `1 + 2 + 3 + … + ${n} = ?`, ans: n * (n + 1) / 2, ex: `頭尾配對：1＋${n}、2＋${n - 1}……每一對都是 ${n + 1}，一共 ${n / 2} 對，${n + 1} × ${n / 2} = ${n * (n + 1) / 2}。數學家高斯小時候就是這樣算的！` }; }],
+  [3, () => { const k = rand(2, 9); return { q: `${k} 公斤 = 幾公克？`, ans: k * 1000, u: '公克', ex: `1 公斤 = 1000 公克，所以 ${k} 公斤 = ${k * 1000} 公克。` }; }],
+  [3, () => { const k = rand(3, 9), n = k * rand(3, 9); return { q: `${n} 顆糖平均分給 ${k} 個人，每人分到幾顆？`, ans: n / k, u: '顆', ex: `想乘法：□ × ${k} = ${n}，□ = ${n / k}。這就是「除法」：${n} ÷ ${k} = ${n / k}` }; }],
+  [3, () => { let d; do { d = [rand(1, 9), rand(0, 9), rand(0, 9)]; } while (new Set(d).size < 3); const big = +[...d].sort((a, b) => b - a).join(''), asc = [...d].sort((a, b) => a - b); if (asc[0] === 0) [asc[0], asc[1]] = [asc[1], asc[0]]; const small = +asc.join(''), askBig = Math.random() < .5; return { q: `用 ${d.join('、')} 三張數字卡排成三位數，${askBig ? '最大' : '最小'}是多少？`, ans: askBig ? big : small, ex: askBig ? `大的數字放前面：${big}` : `小的數字放前面，但是 0 不能放在百位：${small}` }; }],
+  [3, () => { const t = rand(2, 9), o = rand(0, t - 1); return { q: `一個兩位數，十位和個位加起來是 ${t + o}，十位比個位大 ${t - o}。這個數是多少？`, ans: t * 10 + o, ex: `十位 =（${t + o} ＋ ${t - o}）÷ 2 = ${t}，個位 = ${t + o} − ${t} = ${o}，所以是 ${t * 10 + o}。` }; }],
+  [4, () => { const s = [1, 2, 3, 4, 5, 6, 7].map(i => i * i), k = rand(3, 5); return { q: `找規律：${s.slice(0, k).join('、')}、？`, ans: s[k], ex: `1×1、2×2、3×3……下一個是 ${k + 1}×${k + 1} = ${s[k]}` }; }],
+  [4, () => { const s = [1, 1]; for (let i = 2; i < 9; i++) s.push(s[i - 1] + s[i - 2]); const k = rand(5, 8); return { q: `找規律：${s.slice(0, k).join('、')}、？`, ans: s[k], ex: `每個數都是前面兩個數加起來：${s[k - 2]} + ${s[k - 1]} = ${s[k]}（這叫「費氏數列」，向日葵的種子排列也藏著它！）` }; }],
+  [4, () => { const k = rand(3, 6), q = rand(3, 8), r = rand(1, k - 1), n = k * q + r; return { q: `${n} 顆糖平均分給 ${k} 個人，每人一樣多、盡量分完，最後剩下幾顆？`, ans: r, u: '顆', ex: `${k} × ${q} = ${k * q}，${n} − ${k * q} = ${r}。每人 ${q} 顆，剩 ${r} 顆，剩下的叫「餘數」。` }; }],
+  [4, () => { const t = rand(0, 6), n = rand(8, 40), r = (t + n) % 7; const opts = [...new Set([r, (r + 1) % 7, (r + 6) % 7, (r + 2) % 7])]; return { q: `今天是星期${DAYS[t]}，再過 ${n} 天是星期幾？`, ans: r, opts: shuffle(opts).map(i => ({ label: '星期' + DAYS[i], val: i })), ex: `一星期 7 天會循環。${n} ÷ 7 = ${Math.floor(n / 7)} 餘 ${n % 7}，從星期${DAYS[t]}往後數 ${n % 7} 天 → 星期${DAYS[r]}` }; }],
+  [4, () => { const a = rand(11, 19), b = rand(3, 7); return { q: `${a} × ${b} = ?（提示：把 ${a} 拆成 10 和 ${a - 10}）`, ans: a * b, ex: `${a} × ${b} = 10 × ${b} ＋ ${a - 10} × ${b} = ${10 * b} ＋ ${(a - 10) * b} = ${a * b}` }; }],
+  [4, () => { const [q, a, x] = pick([['正方體有幾個面？', 6, '骰子就是正方體：上下、前後、左右，一共 6 個面。'], ['正方體有幾條邊？', 12, '上面 4 條、下面 4 條、直立的 4 條，一共 12 條。'], ['正方體有幾個頂點（角）？', 8, '上面 4 個、下面 4 個，一共 8 個頂點。'], ['長方形有幾個直角？', 4, '長方形的 4 個角都是直角。'], ['三角形的三個角加起來是幾度？', 180, '不管什麼三角形，三個角加起來都是 180 度！'], ['一個圓形有幾條對稱軸？', 999, '圓形穿過圓心的每條線都是對稱軸，有無限多條！']]); return a === 999 ? { q, ans: '無限多條', opts: shuffle(['無限多條', '4 條', '2 條']).map(v => ({ label: v, val: v })), ex: x } : { q, ans: a, ex: x }; }],
+  [4, () => { const sp = rand(2, 5), n = rand(3, 8); return { q: `一隻蝸牛每天白天往上爬 ${sp + 1} 公尺，晚上滑下來 1 公尺。${n} 天後的晚上，牠一共往上爬了幾公尺？`, ans: sp * n, u: '公尺', ex: `每一整天其實只往上 ${sp + 1} − 1 = ${sp} 公尺，${n} 天就是 ${sp} × ${n} = ${sp * n} 公尺。` }; }],
+  [4, () => { const a = rand(3, 8); return { q: `每個人有 2 隻手、2 隻腳，每隻都有 5 根指頭。${a} 個人的手指加腳趾一共有幾根？`, ans: a * 20, ex: `一個人 = 2 隻手 + 2 隻腳 = 4 × 5 = 20 根，${a} 人 = ${a} × 20 = ${a * 20} 根。` }; }]
+];
+
+/* ---------- 成語與閱讀 ---------- */
+const IDIOM = [
+  ['一心一意', '專心做一件事，不想別的', '', 1], ['三心二意', '拿不定主意，不專心', '', 1], ['七上八下', '心裡很緊張、不安', '', 1], ['五顏六色', '顏色很多、很鮮豔', '', 1],
+  ['手忙腳亂', '做事慌慌張張、沒有條理', '', 1], ['心花怒放', '心裡非常開心', '', 1], ['目不轉睛', '眼睛一直盯著看，很專心', '', 1], ['千辛萬苦', '非常非常辛苦', '', 1],
+  ['守株待兔', '不努力，只想等好運自己掉下來', '有個農夫看到一隻兔子撞死在樹樁上，從此不種田了，天天守著樹樁等兔子，田都荒了。', 2],
+  ['畫蛇添足', '做了多餘的事，反而把事情搞壞', '大家比賽畫蛇，有人最先畫完，卻又幫蛇畫上腳，結果輸了──因為蛇根本沒有腳！', 2],
+  ['亡羊補牢', '出錯以後趕快補救，還來得及', '羊圈破了個洞，羊被狼叼走了。主人趕快把洞補好，之後就再也沒少過羊。', 2],
+  ['狐假虎威', '借別人的力量來嚇唬人', '狐狸走在老虎前面，動物們看到都逃跑了。其實大家怕的是老虎，不是狐狸。', 2],
+  ['對牛彈琴', '對聽不懂的人講道理，白費力氣', '有人對著牛彈好聽的曲子，牛完全聽不懂，照樣低頭吃草。', 2],
+  ['井底之蛙', '見識很少、眼光很窄的人', '住在井底的青蛙，以為天空只有井口那麼大。', 2],
+  ['揠苗助長', '太心急想成功，反而把事情弄壞', '農夫嫌稻苗長太慢，把每棵苗都往上拔高一點，結果稻苗全部枯死了。', 2],
+  ['半途而廢', '事情做到一半就放棄', '', 2], ['九牛一毛', '很多很多裡面，極小的一部分', '', 3],
+  ['一箭雙鵰', '做一件事，同時得到兩種好處', '古時候有個神射手，一支箭就射中了兩隻大鵰。', 3],
+  ['自相矛盾', '說話或做事前後不一致', '有人說他的矛什麼都刺得穿、他的盾什麼都擋得住。別人問：「用你的矛刺你的盾會怎樣？」他就答不出來了。', 3],
+  ['杯弓蛇影', '疑神疑鬼，自己嚇自己', '有人看到酒杯裡有蛇的影子，嚇得生病，後來才發現那是牆上掛的弓的倒影。', 3],
+  ['塞翁失馬', '壞事也可能變成好事', '邊塞有位老人的馬跑掉了，大家都替他難過，沒想到那匹馬後來帶著一匹好馬回來。', 3],
+  ['愚公移山', '只要有毅力，再難的事也做得到', '愚公帶著家人一鏟一鏟挖山，他說：「我挖不完，還有兒子、孫子，一直挖下去，總有一天會挖平。」', 3],
+  ['鐵杵磨成針', '只要努力不放棄，就會成功', '李白小時候看到一位老婆婆，把粗粗的鐵棒磨成細針，從此認真讀書。', 3],
+  ['不可思議', '非常奇妙，讓人想不到', '', 3], ['名列前茅', '成績排在最前面', '', 4], ['舉一反三', '學會一件事，就能推想到很多類似的事', '', 4],
+  ['熟能生巧', '練習多了，自然就會很厲害', '', 4], ['大器晚成', '有大才能的人，常常比較晚才成功', '', 4], ['滴水穿石', '力量雖小，持續不斷就能成功', '屋簷的水一滴一滴落下，時間久了，竟然把石頭滴穿了一個洞。', 4]
+].map(([w, m, s, g]) => ({ w, m, s, g }));
+const READ = [
+  { g: 1, title: '小松鼠存糧', p: '秋天到了，小松鼠每天忙著把松果藏進樹洞裡。牠一共藏了三個樹洞：第一個藏了 8 顆，第二個藏了 6 顆，第三個比第二個多 3 顆。冬天下大雪了，小松鼠躲在溫暖的家裡，一點也不怕餓。',
+    qs: [['第三個樹洞藏了幾顆松果？', '9 顆', ['3 顆', '6 顆']], ['為什麼小松鼠冬天不怕餓？', '秋天就把食物存好了', ['冬天可以去買', '牠不用吃東西']], ['小松鼠一共藏了幾顆松果？', '23 顆', ['17 顆', '20 顆']]] },
+  { g: 1, title: '烏鴉喝水', p: '一隻口渴的烏鴉找到一個瓶子，可是瓶子裡的水太少，牠的嘴巴伸進去也碰不到。烏鴉想了又想，把一顆一顆小石頭丟進瓶子裡。水面慢慢升高，烏鴉終於喝到水了。',
+    qs: [['烏鴉一開始為什麼喝不到水？', '水太少，嘴巴碰不到', ['瓶子是空的', '水太燙了']], ['烏鴉用了什麼方法？', '丟石頭讓水面升高', ['把瓶子打破', '請別人幫忙']], ['這個故事告訴我們什麼？', '遇到困難要動腦想辦法', ['口渴要多喝水', '石頭很好玩']]] },
+  { g: 2, title: '藍眼淚', p: '春天到夏天的夜晚，馬祖的海邊有時會出現一片片藍色的光。這不是魔法，而是一種叫做「夜光藻」的小生物。海浪拍打的時候，牠們就會發出藍光，大家都叫它「藍眼淚」。看藍眼淚的時候最好關掉手電筒，眼睛才看得清楚。',
+    qs: [['藍眼淚的光是誰發出來的？', '夜光藻', ['月亮', '魚']], ['什麼時候夜光藻會發光？', '被海浪拍打的時候', ['太陽出來的時候', '下雨的時候']], ['看藍眼淚時應該怎麼做？', '關掉手電筒', ['大聲唱歌', '跳進海裡']]] },
+  { g: 2, title: '螞蟻搬家', p: '如果看到很多螞蟻排成一排在搬家，可能就快要下雨了。因為下雨前空氣變得很潮濕，螞蟻怕家被雨水淹掉，就會搬到比較高的地方。所以老一輩的人常說：「螞蟻搬家，大雨嘩啦啦。」',
+    qs: [['螞蟻為什麼要搬家？', '怕家被雨水淹掉', ['想交新朋友', '家太小了']], ['螞蟻會搬到哪裡？', '比較高的地方', ['水溝裡', '比較低的地方']], ['看到螞蟻搬家，可能會發生什麼事？', '快下雨了', ['快地震了', '天氣變熱']]] },
+  { g: 3, title: '小睿闆的星期天', p: '小睿闆的星期天是這樣的：早上 8 點起床，8 點半吃早餐，9 點到 11 點去游泳。中午 12 點吃午餐，下午 2 點到 3 點半寫功課，4 點和爸爸去公園騎腳踏車。',
+    qs: [['小睿闆游泳游了多久？', '2 小時', ['1 小時', '11 小時']], ['寫功課寫了多久？', '1 小時 30 分鐘', ['30 分鐘', '2 小時']], ['吃完早餐以後，小睿闆做什麼？', '去游泳', ['寫功課', '去公園']]] },
+  { g: 3, title: '媽媽的生日', p: '星期六是媽媽的生日。小睿闆和爸爸一大早就偷偷出門，爸爸買了一個草莓蛋糕，小睿闆用自己存了很久的 50 元買了一朵花。回家後，他們把客廳布置得漂漂亮亮。媽媽看到的時候，感動得流下眼淚。',
+    qs: [['媽媽的生日是星期幾？', '星期六', ['星期日', '星期一']], ['小睿闆的花是用誰的錢買的？', '自己存的錢', ['爸爸的錢', '媽媽的錢']], ['媽媽為什麼流眼淚？', '因為很感動', ['因為很生氣', '因為肚子痛']]] },
+  { g: 4, title: '向日葵的祕密', p: '向日葵小時候，花盤會跟著太陽轉：早上朝東，傍晚朝西，晚上再慢慢轉回東邊。等它長大開花以後，花盤就大多固定朝向東方。科學家發現，朝東的花早上比較快變溫暖，能吸引更多蜜蜂來幫忙傳播花粉。',
+    qs: [['長大開花後的向日葵，大多朝哪一邊？', '東方', ['西方', '北方']], ['朝東有什麼好處？', '早上變溫暖，吸引更多蜜蜂', ['可以躲雨', '比較不會被吃掉']], ['向日葵「小時候」的花盤會怎樣？', '跟著太陽轉', ['一直朝北', '完全不會動']]] },
+  { g: 4, title: '冰山一角', p: '冰山浮在海上，我們看到的只是露出水面的一小部分，大約只有整座冰山的十分之一，其他十分之九都藏在水面下。所以人們用「冰山一角」來形容：我們看到的，只是整件事情很小的一部分。',
+    qs: [['露出水面的冰山大約占多少？', '十分之一', ['一半', '十分之九']], ['「冰山一角」是什麼意思？', '看到的只是事情的一小部分', ['冰山很危險', '冰山會融化']], ['為什麼大部分冰山看不到？', '藏在水面下', ['被雲擋住', '顏色太白']]] }
+];
+const POLY = [
+  ['長', '長頸鹿', 'ㄔㄤˊ', '長大', 'ㄓㄤˇ'], ['樂', '快樂', 'ㄌㄜˋ', '音樂', 'ㄩㄝˋ'], ['行', '行走', 'ㄒㄧㄥˊ', '銀行', 'ㄏㄤˊ'], ['好', '好人', 'ㄏㄠˇ', '好奇', 'ㄏㄠˋ'],
+  ['重', '重量', 'ㄓㄨㄥˋ', '重新', 'ㄔㄨㄥˊ'], ['還', '還有', 'ㄏㄞˊ', '還書', 'ㄏㄨㄢˊ'], ['便', '方便', 'ㄅㄧㄢˋ', '便宜', 'ㄆㄧㄢˊ'], ['數', '數學', 'ㄕㄨˋ', '數一數', 'ㄕㄨˇ'],
+  ['覺', '覺得', 'ㄐㄩㄝˊ', '睡覺', 'ㄐㄧㄠˋ'], ['種', '種子', 'ㄓㄨㄥˇ', '種樹', 'ㄓㄨㄥˋ'], ['為', '為什麼', 'ㄨㄟˋ', '成為', 'ㄨㄟˊ'], ['教', '教室', 'ㄐㄧㄠˋ', '教我寫字', 'ㄐㄧㄠ'],
+  ['得', '得到', 'ㄉㄜˊ', '跑得快', '˙ㄉㄜ'], ['發', '發現', 'ㄈㄚ', '頭髮（髮）', 'ㄈㄚˇ'], ['看', '看書', 'ㄎㄢˋ', '看門', 'ㄎㄢ'], ['空', '天空', 'ㄎㄨㄥ', '空位', 'ㄎㄨㄥˋ']
+].filter(x => x[0] !== '發').map(([c, w1, z1, w2, z2]) => ({ c, w1, z1, w2, z2 }));
+const ORDER = [
+  ['I like apples.', '我喜歡蘋果。', 3], ['This is my dog.', '這是我的狗。', 3], ['She is my mom.', '她是我的媽媽。', 3], ['I can swim.', '我會游泳。', 3],
+  ['It is a red ball.', '它是一顆紅色的球。', 3], ['What is your name?', '你叫什麼名字？', 3], ['How old are you?', '你幾歲？', 3], ['I have two cats.', '我有兩隻貓。', 3],
+  ['The sun is hot.', '太陽很熱。', 3], ['We go to school.', '我們去上學。', 4], ['Do you like milk?', '你喜歡牛奶嗎？', 4], ['He can run fast.', '他可以跑很快。', 4],
+  ['Look at the bird.', '看那隻鳥。', 4], ['My bag is blue.', '我的書包是藍色的。', 4], ['There are three books.', '有三本書。', 4], ['I am seven years old.', '我七歲。', 4]
+].map(([s, c, g]) => ({ s, c, g }));
+const READ_EN = [
+  { p: 'Rui has a red bag. In his bag, there are three books and two pencils.', zh: '小睿有一個紅色書包，裡面有三本書和兩支鉛筆。', qs: [['What color is the bag?', 'red', ['blue', 'green']], ['How many books are there?', 'three', ['two', 'five']]] },
+  { p: 'Tom is a cat. He is fat and white. He likes fish. He sleeps on the bed.', zh: 'Tom 是一隻貓，又胖又白，喜歡吃魚，睡在床上。', qs: [['What does Tom like?', 'fish', ['milk', 'apples']], ['Where does Tom sleep?', 'on the bed', ['under the bed', 'in the box']], ['What color is Tom?', 'white', ['black', 'orange']]] },
+  { p: 'It is sunny today. Mia and her dad go to the park. They fly a kite. The kite is yellow.', zh: '今天晴天，Mia 和爸爸去公園放風箏，風箏是黃色的。', qs: [["How's the weather?", 'sunny', ['rainy', 'snowy']], ['What do they do?', 'fly a kite', ['swim', 'read books']], ['What color is the kite?', 'yellow', ['red', 'purple']]] },
+  { p: 'I have a dog. His name is Max. He can run and jump, but he can not swim.', zh: '我有一隻狗叫 Max，牠會跑會跳，但是不會游泳。', qs: [["What is the dog's name?", 'Max', ['Tom', 'Rui']], ['What can Max NOT do?', 'swim', ['run', 'jump']]] }
+];
+const FLAGS = [['🇯🇵', '日本'], ['🇺🇸', '美國'], ['🇫🇷', '法國'], ['🇬🇧', '英國'], ['🇰🇷', '韓國'], ['🇩🇪', '德國'], ['🇮🇹', '義大利'], ['🇦🇺', '澳洲'], ['🇨🇦', '加拿大'], ['🇧🇷', '巴西'], ['🇪🇬', '埃及'], ['🇮🇳', '印度'], ['🇹🇭', '泰國'], ['🇸🇬', '新加坡']];
+const KNOW2 = [
+  [3,'🗼','艾菲爾鐵塔在哪一個國家？','法國',['英國','日本'],'艾菲爾鐵塔在法國巴黎，已經有一百多年歷史。'],
+  [3,'🏯','萬里長城在哪一個國家？','中國',['韓國','泰國'],'萬里長城是古代為了防守敵人蓋的，非常非常長。'],
+  [3,'🗽','自由女神像在哪一個國家？','美國',['法國','加拿大'],'自由女神像在美國紐約，其實是法國送給美國的禮物！'],
+  [3,'🦘','袋鼠是哪一個國家很有名的動物？','澳洲',['非洲的埃及','巴西'],'袋鼠媽媽有育兒袋，寶寶會住在袋子裡長大。'],
+  [3,'🗾','日本的首都是哪裡？','東京',['大阪','首爾'],'東京是日本的首都；首爾是韓國的首都。'],
+  [3,'🌏','地球上有幾大洲？','七大洲',['五大洲','十大洲'],'亞洲、歐洲、非洲、北美洲、南美洲、大洋洲、南極洲。台灣在亞洲。'],
+  [3,'🏔️','世界最高的山峰是哪一座？','聖母峰',['玉山','富士山'],'聖母峰大約 8849 公尺，差不多是玉山的兩倍多高！'],
+  [4,'🏜️','世界上最大的熱沙漠是？','撒哈拉沙漠',['戈壁沙漠','台灣的沙灘'],'撒哈拉沙漠在非洲，差不多和整個美國一樣大。'],
+  [3,'💡','改良電燈泡，讓電燈走進家家戶戶的發明家是？','愛迪生',['牛頓','貝多芬'],'愛迪生一生有一千多項發明，他說：「天才是 1% 的靈感加上 99% 的努力。」'],
+  [3,'✈️','做出第一架成功飛上天的動力飛機的是？','萊特兄弟',['愛迪生','哥倫布'],'1903 年，萊特兄弟的飛機飛了 12 秒，開啟了飛行的時代。'],
+  [3,'🍎','傳說看到蘋果掉下來，想到「萬有引力」的科學家是？','牛頓',['愛因斯坦','達文西'],'萬有引力讓東西往下掉，也讓月亮繞著地球轉。'],
+  [3,'🌕','第一個踏上月球的人是誰？','阿姆斯壯',['萊特兄弟','哥倫布'],'1969 年，阿姆斯壯說：「這是我個人的一小步，卻是人類的一大步。」'],
+  [4,'📞','一般認為電話是誰發明的？','貝爾',['愛迪生','牛頓'],'1876 年貝爾取得電話的專利，現在的手機就是從電話慢慢變來的。'],
+  [4,'💧','水的化學式是什麼？','H₂O',['CO₂','O₂'],'一個水分子是 2 個氫原子（H）加 1 個氧原子（O）。CO₂ 是二氧化碳。'],
+  [4,'🌬️','空氣裡最多的氣體是？','氮氣',['氧氣','二氧化碳'],'空氣中大約 78% 是氮氣，21% 才是我們呼吸需要的氧氣。'],
+  [3,'🌿','植物行光合作用時，會放出什麼氣體？','氧氣',['氮氣','煙'],'植物吸進二氧化碳、放出氧氣，所以多種樹空氣會更好。'],
+  [3,'🌡️','健康的人，體溫大約是幾度？','37 度',['27 度','47 度'],'人的正常體溫大約 36～37 度，超過 38 度就是發燒了。'],
+  [4,'🦴','大人的身體大約有幾塊骨頭？','206 塊',['50 塊','1000 塊'],'小寶寶的骨頭更多（大約 300 塊），長大後有些會合在一起。'],
+  [3,'🧠','負責指揮全身、思考和記憶的器官是？','大腦',['胃','肺'],'大腦像身體的總司令，睡飽覺能讓大腦更聰明喔。'],
+  [3,'🐙','章魚有幾顆心臟？','3 顆',['1 顆','8 顆'],'章魚有 3 顆心臟、8 隻腳，血還是藍色的！'],
+  [4,'🦈','鯊魚是魚類嗎？','是，是軟骨魚',['不是，是哺乳類','不是，是兩棲類'],'鯊魚用鰓呼吸，是魚類；牠的骨頭是軟骨，所以叫軟骨魚。'],
+  [3,'🦇','唯一真的會飛的哺乳類動物是？','蝙蝠',['飛鼠','企鵝'],'飛鼠只會滑翔，蝙蝠才是真的會拍翅膀飛的哺乳類。'],
+  [4,'🐝','蜜蜂找到花蜜後，怎麼告訴同伴花在哪裡？','跳舞',['寫字','打電話'],'蜜蜂會跳「搖擺舞」，用方向和跳的時間告訴同伴花在哪裡、有多遠。'],
+  [3,'🐢','海龜媽媽會在哪裡生蛋？','沙灘上',['樹上','海底'],'海龜媽媽爬上沙灘挖洞生蛋，小海龜孵出來後會自己爬回大海。'],
+  [3,'🐳','鯨魚頭頂噴水的那個洞，其實是什麼？','鼻孔',['嘴巴','耳朵'],'鯨魚用肺呼吸，浮上水面用頭頂的鼻孔換氣，噴出來的是水氣。'],
+  [3,'☀️','太陽是一顆什麼星？','恆星',['行星','衛星'],'會自己發光發熱的是恆星；地球是行星，月亮是地球的衛星。'],
+  [3,'🌍','地球自己轉一圈大約要多久？','一天',['一小時','一年'],'地球自轉一圈是一天，所以有白天和黑夜；繞太陽一圈是一年。'],
+  [4,'💡','太陽光照到地球，大約要多久？','8 分鐘',['8 秒鐘','8 天'],'光跑得超快，但太陽太遠了，還是要大約 8 分鐘才到地球。'],
+  [3,'🪐','有一圈很漂亮光環的行星是？','土星',['火星','水星'],'土星的光環是由很多冰塊和石頭組成的。'],
+  [3,'🔴','被叫做「紅色星球」的是？','火星',['金星','木星'],'火星的土裡有很多鐵鏽，所以看起來紅紅的。'],
+  [4,'🌌','我們的太陽系在哪一個星系裡？','銀河系',['仙女座星系','月亮系'],'銀河系裡有幾千億顆像太陽一樣的恆星！'],
+  [3,'❄️','雪花大多是幾個角的形狀？','六個角',['四個角','八個角'],'雪花是水結成的冰晶，大多是漂亮的六角形，而且每一片都不一樣。'],
+  [4,'🌈','看到彩虹的時候，太陽通常在你的哪裡？','背後',['正前方','頭頂正上方'],'背對太陽、前面有小水滴的時候，就有機會看到彩虹。'],
+  [4,'🔇','聲音在哪裡傳不過去？','太空（真空）',['水裡','牆壁裡'],'聲音要靠空氣、水或東西傳過去，太空沒有空氣，所以聽不到聲音。'],
+  [3,'🧲','兩個磁鐵的 N 極靠在一起，會怎麼樣？','互相推開',['緊緊吸住','沒有反應'],'同極相斥（推開）、異極相吸（吸住）。'],
+  [4,'🗺️','台灣的高山，主要是怎麼形成的？','板塊互相擠壓',['人工堆起來','隕石撞出來'],'台灣在兩個板塊交界，被擠壓抬升，所以有很多高山，也常常地震。'],
+  [3,'🏞️','台灣最長的河流是？','濁水溪',['淡水河','高屏溪'],'濁水溪大約 186 公里，水裡有很多泥沙，所以看起來濁濁的。'],
+  [4,'🏙️','台灣有幾個直轄市？','6 個',['3 個','10 個'],'台北、新北、桃園、台中、台南、高雄。'],
+  [3,'🐻','台灣黑熊胸前有什麼明顯的記號？','白色 V 字',['紅色圓圈','黃色星星'],'台灣黑熊是台灣特有亞種，胸前的白色 V 字像一彎月亮。'],
+  [4,'🐟','國寶魚櫻花鉤吻鮭住在哪裡？','高山的冷溪流',['大海裡','游泳池'],'櫻花鉤吻鮭只住在台灣中部高山很冷、很乾淨的溪流裡。'],
+  [3,'🏘️','馬祖傳統的房子大多是用什麼蓋的？','石頭',['冰塊','紙'],'馬祖的閩東石頭屋很堅固，可以抵擋海風，北竿芹壁村最有名。'],
+  [4,'🛕','傳說「馬祖」這個名字和誰有關？','媽祖',['孫悟空','土地公'],'傳說媽祖的遺體漂流到南竿，人們蓋廟紀念，這裡就叫做馬祖。'],
+  [3,'🌙','寫下「床前明月光」這首詩的詩人是？','李白',['杜甫','孔子'],'李白的〈靜夜思〉寫的是在外地看到月亮，很想念家鄉。'],
+  [3,'📚','說過「學而時習之」、是有名老師的人是？','孔子',['李白','愛迪生'],'孔子是兩千多年前的大教育家，9 月 28 日教師節就是他的生日。'],
+  [3,'🧭','指南針紅色那一端，通常指向哪裡？','北方',['南方','東方'],'指南針裡是小磁鐵，會受地球磁場影響，紅色（N）那端指北。'],
+  [3,'🗺️','看地圖時，通常「上北下南」，那左邊是？','西',['東','南'],'上北、下南、左西、右東。'],
+  [3,'🥛','1 公升等於幾毫升？','1000 毫升',['100 毫升','10 毫升'],'一般寶特瓶大約 600 毫升，兩瓶還不到 1 公升喔。'],
+  [4,'🔥','東西要燒起來，需要哪三樣東西？','可燃物、氧氣、夠高的溫度',['水、沙、石頭','風、雨、雷'],'這叫「燃燒三要素」，少了任何一樣火就會熄滅，滅火就是這個原理。'],
+  [4,'🩸','傷口流血後，血會慢慢凝固變成什麼保護傷口？','結痂',['冰塊','頭髮'],'血液裡的血小板會幫忙止血，結痂下面新的皮膚正在長出來，不要去摳喔！'],
+  [4,'🐋','藍鯨寶寶一出生，大約就有多重？','和一台小汽車差不多',['和一隻貓差不多','和一顆蘋果差不多'],'藍鯨寶寶出生就大約 2～3 公噸重，每天喝很多很多奶。']
+].map(([g, e, q, a, d, x]) => ({ g, e, q, a, d, x }));
+
+KNOW.push(...KNOW2);
+
 /* ---------- 遊戲們 ---------- */
 const GAMES = {
   mole: {
@@ -783,7 +997,7 @@ const GAMES = {
     title: '時鐘轉轉樂',
     setup() {},
     question() {
-      const g = S.grade, type = g === 1 ? pick(['pick', 'pick', 'read']) : pick(['pick', 'read', 'later', 'later']);
+      const g = S.grade, type = g === 1 ? pick(['pick', 'pick', 'read']) : g === 2 ? pick(['pick', 'read', 'later', 'later']) : pick(['pick', 'read', 'later', 'dur', 'dur']);
       const t = randTime(); G.cur = { t, type };
       if (type === 'pick') {
         const opts = shuffle([t, ...timeDistractors(t)]);
@@ -793,6 +1007,11 @@ const GAMES = {
         const opts = shuffle([t, ...timeDistractors(t)]);
         G.cur.q = '這個時鐘是幾點幾分？';
         mc({ head: `<div class="clockbig">${clockSVG(t.h, t.m)}</div>`, prompt: G.cur.q, opts: opts.map(o => ({ label: timeText(o), val: tkey(o) })), ans: tkey(t) });
+      } else if (type === 'dur') {
+        const d = g >= 4 ? rand(35, 170) : rand(4, 18) * 5, r = addMin(t, d); G.cur.d = d; G.cur.r = r;
+        G.cur.q = `從 ${timeText(t)} 到 ${timeText(r)}，經過了幾分鐘？`;
+        mc({ head: `<div class="clockpair"><div>${clockSVG(t.h, t.m)}</div><b>→</b><div>${clockSVG(r.h, r.m)}</div></div>`, prompt: G.cur.q, opts: numOpts(d, 4, [5, 10, 60, 15, 1]).map(o => ({ ...o, label: o.label + ' 分鐘' })), ans: d,
+          explain: `${timeText(t)} → ${timeText(r)}，經過 ${d} 分鐘${d >= 60 ? `（＝ ${Math.floor(d / 60)} 小時 ${d % 60} 分）` : ''}` });
       } else {
         const d = g === 2 ? pick([10, 15, 20, 25, 30, 40, 45]) : pick([25, 35, 45, 50, 75, 90, 105, 125]);
         const r = addMin(t, d); G.cur.d = d; G.cur.r = r;
@@ -807,6 +1026,7 @@ const GAMES = {
     hint() {
       const { t, type } = G.cur;
       const base = `<div style="width:170px;margin:auto">${clockSVG(null, null, true)}</div><p>⏱️ <b>短短胖胖</b>的是時針，告訴你「幾點」。<br>📏 <b style="color:#ff5e57">長長瘦瘦</b>的是分針，告訴你「幾分」。</p><p>長針每走一個數字是 5 分鐘（藍色小數字），每走一小格是 1 分鐘。</p>`;
+      if (type === 'dur') { const toFull = 60 - t.m; return base + `<p>先數到整點：${timeText(t)} 到 ${t.h % 12 + 1} 點是 ${toFull} 分鐘。</p><p>再數剩下的：到 ${timeText(G.cur.r)}，把兩段加起來！</p><p class="small">1 小時 = 60 分鐘</p>`; }
       if (type === 'later') {
         const toFull = 60 - t.m, d = G.cur.d;
         return base + (d >= toFull ? `<p>先走到整點：${t.m} 分 → 60 分，要 ${toFull} 分鐘。</p><p>剩下 ${d} − ${toFull} = ${d - toFull} 分鐘，再往後加。</p>` : `<p>${t.m} + ${d} = ${t.m + d}，還沒超過 60 分，時針還在 ${t.h} 點。</p>`) + `<p class="small">60 分鐘 = 1 小時</p>`;
@@ -827,11 +1047,13 @@ const GAMES = {
       if (type === 'change') {
         const paid = g === 2 ? pick([100, 100, 500]) : pick([500, 1000, 1000]);
         const price = paid === 100 ? rand(12, 93) : paid === 500 ? rand(105, 488) : rand(160, 985);
-        const ch = paid - price; G.cur = { e, n, price, paid, ch, type };
-        mc({ head: `<div class="shopitem"><span class="bigemoji">${e}</span><div><div style="font-size:22px;font-weight:900">${n}</div><div class="price">${price} 元</div></div></div><p class="tip" style="display:flex;align-items:center;gap:8px;opacity:1;font-size:20px">小睿闆付了 ${this.coinHTML(paid, 'disabled')} 元</p>`,
+        const items = [[e, n, price]];
+        if (g >= 4 && paid - price > 30) { const [e2, n2] = pick(this.items.filter(x => x[1] !== n)), p2 = rand(15, Math.min(300, paid - price - 5)); items.push([e2, n2, p2]); }
+        const total = items.reduce((t2, x) => t2 + x[2], 0), ch = paid - total; G.cur = { e, n: items.map(x => x[1]).join('和'), price: total, paid, ch, type };
+        mc({ head: `<div class="shoprow">${items.map(([ie, iname, ip]) => `<div class="shopitem"><span class="bigemoji">${ie}</span><div><div style="font-size:20px;font-weight:900">${iname}</div><div class="price">${ip} 元</div></div></div>`).join('')}</div><p class="tip" style="display:flex;align-items:center;gap:8px;opacity:1;font-size:20px">小睿闆付了 ${this.coinHTML(paid, 'disabled')} 元</p>`,
           prompt: '老闆要找回多少錢？', opts: numOpts(ch, 4, [1, 10, 5, 100, 2]).map(o => ({ ...o, label: o.label + ' 元' })), ans: ch,
-          explain: `${paid} − ${price} = ${ch}，要找 ${ch} 元。` });
-        say(`${n}要${price}元，付了${paid}元，要找多少錢？`);
+          explain: items.length > 1 ? `${items.map(x => x[2]).join(' + ')} = ${total}，${paid} − ${total} = ${ch}，要找 ${ch} 元。` : `${paid} − ${total} = ${ch}，要找 ${ch} 元。` });
+        say(`一共${total}元，付了${paid}元，要找多少錢？`);
         return;
       }
       const price = g === 1 ? rand(16, 99) : g === 2 ? rand(108, 480) : rand(260, 990);
@@ -877,6 +1099,7 @@ const GAMES = {
     question() {
       const g = S.grade, types = ['meas', 'opp', 'zhu', 'fill', 'zhu', 'meas', 'fill'];
       if (g === 1) types.push('pic', 'pic');
+      if (g >= 3) types.push('poly', 'poly');
       if (g >= 2) types.push('rad', 'rad', 'opp');
       const type = pick(types); G.cur = { type };
       if (type === 'pic') {
@@ -901,6 +1124,12 @@ const GAMES = {
         const t = draw('fill', pool(FILL));
         Object.assign(G.cur, { t, q: '選出正確的字，填進句子裡' });
         mc({ head: `<div class="wp" style="text-align:center">${t.s.replace('＿', '（　）')}</div>`, prompt: '要填哪一個字？', opts: shuffle([t.a, ...t.d]).map(x => ({ label: x, val: x })), ans: t.a, explain: t.s.replace('＿', `<b style="color:#1f9d55">${t.a}</b>`) });
+      } else if (type === 'poly') {
+        const t = draw('poly', POLY), first = Math.random() < .5, w = first ? t.w1 : t.w2, z = first ? t.z1 : t.z2, other = first ? t.z2 : t.z1;
+        const extra = zhuyinVariants(z).find(v => v !== other && v.replace('˙', '') !== other.replace('˙', ''));
+        Object.assign(G.cur, { t, w, q: `「${w}」的「${t.c}」念什麼？` });
+        mc({ head: `<div class="idiom">${w.replace(t.c, `<span class="blank">${t.c}</span>`)}</div>`, prompt: `「${w}」的「${t.c}」念什麼？（多音字）`, opts: shuffle([z, other, ...(extra ? [extra] : [])]).map(x => ({ label: x, val: x, cls: 'zy' })), ans: z,
+          explain: `「${t.c}」是多音字：${t.w1}（${t.z1}）、${t.w2}（${t.z2}）` });
       } else {
         const keys = Object.keys(RAD), k = pick(keys), ch = pick([...RAD[k]]), d = shuffle(keys.filter(x => x !== k)).slice(0, 2);
         Object.assign(G.cur, { k, ch, opts: [k, ...d], q: `「${ch}」的部首是什麼？` });
@@ -915,6 +1144,7 @@ const GAMES = {
       if (c.type === 'meas') return `<p>量詞小口訣：</p><p>🐾 小動物用「隻」，🐄 大動物用「頭」或「匹」<br>📏 長長的用「條」，📄 平平薄薄的用「張」<br>👟 成對的用「雙」，🌸 花和雲用「朵」<br>🌳 樹用「棵」，🔵 圓圓小小的用「顆」<br>☂️ 有把手的用「把」，✏️ 細細長長的用「支」</p>`;
       if (c.type === 'opp') return `<p>相反詞就是意思完全反過來，像 大 ↔ 小、快 ↔ 慢。</p><p>想一想：「${c.w}」的時候，跟它完全不一樣的是什麼樣子？</p>`;
       if (c.type === 'zhu') { say(c.t.w); return `<p>🔊 仔細聽小小柒念「${c.t.w}」</p><p>聲調：一聲平平 ➖、二聲往上 ↗、三聲先下再上 ✔、四聲往下 ↘</p><p>小心：ㄓㄔㄕ 要捲舌，ㄗㄘㄙ 不捲舌；ㄣ 和 ㄥ、ㄢ 和 ㄤ 不一樣喔！</p>`; }
+      if (c.type === 'poly') return `<p>「${c.t.c}」是<b>多音字</b>，在不同的詞裡念法不一樣。</p><p>把「${c.w}」整個詞念出來，哪一個念法聽起來最順？</p>`;
       if (c.type === 'fill') return `<p>這幾個字念起來很像，但意思不一樣。</p><p>把每個字放進去讀讀看，想想它們分別是什麼意思，哪個最通順？</p>`;
       return `<p>部首通常在字的<b>左邊</b>或<b>上面</b>，而且跟字的意思有關：</p>${c.opts.map(k => `<p>${k}：${RAD_MEAN[k]}</p>`).join('')}`;
     },
@@ -926,6 +1156,8 @@ const GAMES = {
     question() {
       const g = S.grade, types = ['pic', 'listen', 'color', 'count', 'pic'];
       if (g >= 2) types.push('spell', 'spell', 'start', 'talk', 'talk', 'listen');
+      if (g >= 3) types.push('order', 'order');
+      if (g >= 4) types.push('readen', 'readen');
       const type = pick(types); G.cur = { type };
       const list = pool(EN);
       if (type === 'pic' || type === 'listen') {
@@ -952,6 +1184,24 @@ const GAMES = {
         const t = pick(list), L = t.w[0], others = shuffle(list.filter(x => x.w[0] !== L)).slice(0, 2);
         Object.assign(G.cur, { t, L, say: `Which one starts with ${L.toUpperCase()}?` });
         mc({ head: `<div class="spell">${L.toUpperCase()} ${L}</div>`, prompt: `哪一個是 ${L.toUpperCase()} 開頭的？`, opts: shuffle([t, ...others]).map(o => ({ html: `<span style="font-size:40px">${o.e}</span><small>${o.w}</small>`, val: o.w })), ans: t.w, explain: `${t.w} 是 ${L} 開頭，${L.toUpperCase()} 的聲音就像 ${t.w} 的第一個音。`, onRight: () => sayEn(t.w) });
+      } else if (type === 'order') {
+        const t = draw('order', pool(ORDER)), words = t.s.split(' ');
+        Object.assign(G.cur, { t, say: t.s, built: [] });
+        $('#gBody').innerHTML = `<div class="question small">把英文排成正確的句子：「${t.c}」</div><div class="built" id="built"></div><div class="chips">${shuffle(words.map((w, i) => ({ w, i }))).map(o => `<button class="chip-w" data-i="${o.i}">${esc(o.w)}</button>`).join('')}</div><button class="tool" id="redo">↺ 重排</button><div class="explain" id="exp"></div>`;
+        const paintB = () => { $('#built').innerHTML = G.cur.built.map(i => `<span class="bw">${esc(words[i])}</span>`).join(' ') || '<span class="trayhint">依序點下面的單字</span>'; };
+        paintB();
+        $$('#gBody .chip-w').forEach(b => b.onclick = () => {
+          if (G.lock || b.disabled) return; b.disabled = true; G.cur.built.push(+b.dataset.i); beep(); paintB();
+          if (G.cur.built.length === words.length) {
+            if (G.cur.built.map(i => words[i]).join(' ') === t.s) { sayEn(t.s); correct({ explain: `${t.s}<br>＝ ${t.c}` }); }
+            else { wrong($('#built')); setTimeout(() => { G.cur.built = []; $$('#gBody .chip-w').forEach(x => x.disabled = false); paintB(); }, 700); }
+          }
+        });
+        $('#redo').onclick = () => { if (G.lock) return; G.cur.built = []; $$('#gBody .chip-w').forEach(x => x.disabled = false); paintB(); };
+      } else if (type === 'readen') {
+        const P = draw('readen', READ_EN), [q, a, d] = pick(P.qs);
+        Object.assign(G.cur, { P, q, say: P.p + ' ' + q });
+        mc({ head: `<div class="passage en-q">📖 ${P.p}</div>`, prompt: q, opts: shuffle([a, ...d]).map(x => ({ label: x, val: x, cls: 'txt en-s' })), ans: a, cls: 'col', explain: `${P.zh}<br>答案：${a}`, onRight: () => sayEn(a) });
       } else {
         const t = draw('talk', pool(TALK));
         Object.assign(G.cur, { t, say: t.q.replace(/[^\x00-\x7F]+/g, ' ') });
@@ -967,9 +1217,11 @@ const GAMES = {
       if (c.type === 'count') return `<p>先用中文數一數，再找英文：</p><p>${NUMS.slice(1, 21).map((w, i) => `${i + 1} ${w}`).join('、')}</p>`;
       if (c.type === 'spell') { sayEn(c.t.w); return `<p>🔊 慢慢聽：${c.t.w}</p><p>${c.t.e} ＝ ${c.t.c}</p><p>跟著念一個一個字母：${[...c.t.w].map((x, j) => j === c.i ? '❓' : x).join(' - ')}</p>`; }
       if (c.type === 'start') { sayEn(`${c.L}. ${c.t.w}`); return `<p>把每個圖的英文念念看，聽第一個聲音是不是 ${c.L.toUpperCase()}！</p>`; }
+      if (c.type === 'order') return `<p>英文句子的順序小祕訣：</p><p>① 大寫字母開頭的單字放第一個<br>② 有句點「.」或問號「?」的放最後<br>③ 中文意思：${c.t.c}</p>`;
+      if (c.type === 'readen') { sayEn(c.P.p); return `<p>🔊 小小柒念一次文章給你聽。</p><p>中文意思：${c.P.zh}</p>`; }
       return `<p>💬 ${c.t.q}</p><p>中文意思提示：${c.t.c.split('→')[0]}</p><p>想一想，別人這樣問你，你會怎麼回答？</p>`;
     },
-    desc() { const c = G.cur; return c.type === 'talk' ? c.t.q : c.t ? `${c.t.e || ''} 英文` : '英文題'; }
+    desc() { const c = G.cur; return c.type === 'talk' ? c.t.q : c.type === 'order' ? c.t.s : c.type === 'readen' ? c.q : c.t ? `${c.t.e || ''} 英文` : '英文題'; }
   },
   know: {
     title: '知識大冒險',
@@ -982,7 +1234,208 @@ const GAMES = {
     read() { say(G.cur.q); },
     hint() { return `<p>想一想你看過、聽過的事情。</p><p>先把<b>一定不對</b>的答案刪掉，再從剩下的選！</p><p class="small">真的不知道也沒關係，猜猜看，答完會告訴你答案的秘密喔！</p>`; },
     desc() { return G.cur.q; }
+  },
+  think: {
+    title: '數學思考王',
+    setup() {},
+    question() {
+      const p = draw('think', THINK.filter(t => t[0] <= S.grade))[1](); G.cur = p;
+      const opts = p.opts || numOpts(p.ans, 4, p.ans > 200 ? [1, 10, 100, 2, 50] : [1, 2, 3, 5, 10]).map(o => ({ ...o, label: o.label + (p.u ? ' ' + p.u : '') }));
+      mc({ head: `<div class="wp">🧩 ${p.q}</div>`, prompt: '', opts, ans: p.ans, explain: `<b>解法：</b>${p.ex}` });
+      this.read();
+    },
+    read() { say(G.cur.q.replace(/<[^>]+>/g, ' ').replace(/[\u{1F300}-\u{1FAFF}⭐]/gu, '')); },
+    hint() { return `<p>🧩 思考題的祕訣：</p><p>① 把題目再讀一次，圈出重要的數字<br>② 畫圖或排排看（白板很好用！）<br>③ 先用小一點的數字試試看，找出規律</p><p class="small">真的想不出來也沒關係，答完會告訴你解法！</p>`; },
+    desc() { return G.cur.q.replace(/<[^>]+>/g, ' '); }
+  },
+  speed: {
+    title: '心算快手', total: 999, noHint: true,
+    setup(body) {
+      Object.assign(G, { left: 60, combo: 0, maxCombo: 0, score: 0, input: '' });
+      body.innerHTML = `<div class="speedbar"><span id="spT">⏱ 60 秒</span><span id="spC">🔥 0 連擊</span><span id="spS">✅ 0</span></div>
+        <div class="question" id="q"></div><div class="ansbox" id="ab">&nbsp;</div>
+        <div class="pad">${[1, 2, 3, 4, 5, 6, 7, 8, 9, '⌫', 0, 'OK'].map(k => `<button class="pk" data-k="${k}">${k}</button>`).join('')}</div>`;
+      $$('#gBody .pk').forEach(b => b.onclick = () => this.key(b.dataset.k));
+      clearInterval(G.iv);
+      G.iv = setInterval(() => {
+        if (!$('#game').classList.contains('active') || G.kind !== 'speed') { clearInterval(G.iv); return; }
+        if ($('#mb').classList.contains('show')) return;
+        G.left--; $('#spT').textContent = `⏱ ${G.left} 秒`;
+        if (G.left === 10) say('剩下十秒！');
+        if (G.left <= 0) { clearInterval(G.iv); finish(); }
+      }, 1000);
+      say('六十秒心算挑戰，開始！');
+    },
+    question() {
+      G.cur = makeMath(); G.input = '';
+      $('#q').textContent = G.cur.text.includes('□') ? G.cur.text : G.cur.text + ' = ?';
+      $('#ab').innerHTML = '&nbsp;';
+      $('#gProg').textContent = `第 ${G.i} 題`;
+    },
+    key(k) {
+      if (G.left <= 0) return;
+      if (k === '⌫') G.input = G.input.slice(0, -1);
+      else if (k === 'OK') return this.check(true);
+      else if (G.input.length < 4) G.input += k;
+      $('#ab').innerHTML = G.input || '&nbsp;';
+      if (G.input === String(G.cur.ans)) this.check();
+    },
+    check(pressed) {
+      if (G.input !== '' && +G.input === G.cur.ans) {
+        G.combo++; G.score++; G.maxCombo = Math.max(G.maxCombo, G.combo); beep('ok');
+        if (G.score % 2 === 0) { const st = addStar(); if (st) G.fresh.push(st); G.earned++; }
+        if (G.combo % 5 === 0) { confetti(); cheerRui(); say(`${G.combo} 連擊！`); }
+        $('#spC').textContent = `🔥 ${G.combo} 連擊`; $('#spS').textContent = `✅ ${G.score}`;
+        nextQ();
+      } else if (pressed) {
+        G.combo = 0; beep('bad'); sadRui(); $('#spC').textContent = '🔥 0 連擊';
+        const ab = $('#ab'); ab.classList.remove('shake'); void ab.offsetWidth; ab.classList.add('shake');
+        G.input = ''; ab.innerHTML = '&nbsp;';
+      }
+    },
+    read() { say(G.cur.text.includes('□') ? G.cur.text.replace('□', '多少').replace('=', '等於') : `${G.cur.text} 等於多少？`); },
+    hint() { return ''; }, desc() { return ''; },
+    summary() {
+      S.speedBest = S.speedBest || {}; const old = S.speedBest[S.grade] || 0, isNew = G.score > old;
+      if (isNew) { S.speedBest[S.grade] = G.score; save(); }
+      return `<div class="big">⚡</div><h2>時間到！</h2><p>60 秒答對 <b>${G.score}</b> 題，最高 <b>${G.maxCombo}</b> 連擊</p><p>${isNew ? '🏆 破紀錄了！' : `這個程度的最佳紀錄：${old} 題`}</p><p>拿到 ${G.earned} 顆 ⭐</p>`;
+    }
+  },
+  sudoku: {
+    title: '數獨小達人', total: 3,
+    setup(body) { this.body = body; },
+    make(n) {
+      const bh = 2, bw = n === 4 ? 2 : 3;
+      const rows = shuffle([...Array(n / bh).keys()]).flatMap(b => shuffle([...Array(bh).keys()]).map(i => b * bh + i));
+      const cols = shuffle([...Array(n / bw).keys()]).flatMap(b => shuffle([...Array(bw).keys()]).map(i => b * bw + i));
+      const perm = shuffle([...Array(n).keys()]);
+      const sol = rows.map(r => cols.map(c => perm[(bw * (r % bh) + Math.floor(r / bh) + c) % n] + 1));
+      const blanks = n === 4 ? [0, 7, 9, 10, 11][S.grade] : [0, 14, 16, 18, 21][S.grade];
+      const cells = shuffle([...Array(n * n).keys()]).slice(0, blanks);
+      const cur = sol.map(r => [...r]); cells.forEach(i => cur[Math.floor(i / n)][i % n] = 0);
+      return { n, bh, bw, sol, cur, given: cur.map(r => r.map(v => v > 0)), sel: null };
+    },
+    question() {
+      const sizes = { 1: [4, 4, 4], 2: [4, 4, 6], 3: [4, 6, 6], 4: [6, 6, 6] }[S.grade];
+      const P = this.make(sizes[G.i - 1]); G.cur = P;
+      this.body.innerHTML = `<div class="question small">第 ${G.i} 題（${P.n}×${P.n}）：每一橫排、每一直排、每個粗框裡，1～${P.n} 都只能出現一次！</div>
+        <div class="sdk" id="sdk" style="grid-template-columns:repeat(${P.n},1fr)"></div>
+        <div class="pad sdkpad" style="grid-template-columns:repeat(${Math.min(P.n + 1, 7)},1fr)">${[...Array(P.n)].map((_, i) => `<button class="pk" data-k="${i + 1}">${i + 1}</button>`).join('')}<button class="pk" data-k="0">⌫</button></div><div class="explain" id="exp"></div>`;
+      $$('#gBody .sdkpad .pk').forEach(b => b.onclick = () => this.put(+b.dataset.k));
+      this.paint(); say('數獨挑戰！每一排、每一直排、每個粗框裡，數字都不能重複');
+    },
+    conflicts() {
+      const { n, bh, bw, cur } = G.cur, bad = new Set();
+      for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) {
+        const v = cur[r][c]; if (!v) continue;
+        for (let k = 0; k < n; k++) {
+          if (k !== c && cur[r][k] === v) bad.add(r * n + c);
+          if (k !== r && cur[k][c] === v) bad.add(r * n + c);
+        }
+        const r0 = r - r % bh, c0 = c - c % bw;
+        for (let i = r0; i < r0 + bh; i++) for (let j = c0; j < c0 + bw; j++) if ((i !== r || j !== c) && cur[i][j] === v) bad.add(r * n + c);
+      }
+      return bad;
+    },
+    paint() {
+      const P = G.cur, bad = this.conflicts();
+      $('#sdk').innerHTML = P.cur.flatMap((row, r) => row.map((v, c) => {
+        const cls = ['sc', P.given[r][c] ? 'given' : '', P.sel === r * P.n + c ? 'sel' : '', bad.has(r * P.n + c) ? 'bad' : '', P.hinted === r * P.n + c ? 'hinted' : '',
+          (c + 1) % P.bw === 0 && c < P.n - 1 ? 'br' : '', (r + 1) % P.bh === 0 && r < P.n - 1 ? 'bb' : ''].join(' ');
+        return `<button class="${cls}" data-i="${r * P.n + c}">${v || ''}</button>`;
+      })).join('');
+      $$('#sdk .sc').forEach(b => b.onclick = () => { const i = +b.dataset.i; if (P.given[Math.floor(i / P.n)][i % P.n]) return; P.sel = i; beep(); this.paint(); });
+    },
+    put(v) {
+      const P = G.cur; if (P.sel == null || G.lock) { say('先點一個空格喔'); return; }
+      P.cur[Math.floor(P.sel / P.n)][P.sel % P.n] = v; this.paint();
+      const full = P.cur.every(r => r.every(x => x > 0));
+      if (full) { if (this.conflicts().size === 0) correct({ explain: `第 ${G.i} 題數獨完成！你是邏輯小天才 🧠` }); else { wrong($('#sdk')); say('有紅色的格子重複了，檢查看看'); } }
+    },
+    read() { say(`每一排、每一直排、每個粗框裡，1到${G.cur.n}都只能出現一次`); },
+    hint() {
+      const P = G.cur, empt = [];
+      for (let r = 0; r < P.n; r++) for (let c = 0; c < P.n; c++) if (!P.given[r][c] && P.cur[r][c] !== P.sol[r][c]) empt.push([r, c]);
+      if (empt.length) { const [r, c] = pick(empt); P.cur[r][c] = P.sol[r][c]; P.hinted = r * P.n + c; this.paint(); }
+      return `<p>小小柒幫你填好一格了（亮黃色那格）！</p><p>解題祕訣：找一排、一直排或一個框裡，<b>只差一個數字</b>的地方，最好填！</p><p>再用「這一排已經有誰了？」把不可能的數字刪掉。</p>`;
+    },
+    desc() { return '數獨卡住了'; }
+  },
+  memory: {
+    title: '記憶翻牌', total: 3,
+    setup(body) { this.body = body; },
+    themes() {
+      const g = S.grade, t = ['en', 'opp'];
+      if (g >= 2) t.push('mul', 'mul');
+      if (g >= 3) t.push('flag', 'idiom');
+      return t;
+    },
+    pairs(theme, k) {
+      if (theme === 'mul') { const seen = new Set(), out = []; while (out.length < k) { const a = rand(3, 9), b = rand(3, 9); if (seen.has(a * b)) continue; seen.add(a * b); out.push([`${a}×${b}`, String(a * b)]); } return { name: '乘法配對', out }; }
+      if (theme === 'en') return { name: '英文配對', out: shuffle(pool(EN)).slice(0, k).map(x => [x.e, x.w]) };
+      if (theme === 'opp') return { name: '相反詞配對', out: shuffle(pool(OPP)).slice(0, k).map(x => [x.a, x.b]) };
+      if (theme === 'flag') return { name: '國旗配對', out: shuffle(FLAGS).slice(0, k).map(x => [x[0], x[1]]) };
+      return { name: '成語接龍配對', out: shuffle(IDIOM.filter(x => x.w.length === 4 && x.g <= S.grade)).slice(0, k).map(x => [x.w.slice(0, 2), x.w.slice(2)]) };
+    },
+    question() {
+      const k = S.grade <= 2 ? 6 : 8, theme = pick(this.themes()), { name, out } = this.pairs(theme, k);
+      const cards = shuffle(out.flatMap(([a, b], pid) => [{ pid, face: a }, { pid, face: b }]));
+      G.cur = { cards, open: [], done: 0, moves: 0, k, name };
+      this.body.innerHTML = `<div class="question small">🃏 ${name}：翻開兩張，找出一對！</div><div class="mem" style="grid-template-columns:repeat(4,1fr)">${cards.map((c, i) => `<button class="mc" data-i="${i}"><span class="back">❓</span><span class="face">${esc(c.face)}</span></button>`).join('')}</div><div class="tip" id="mv">翻了 0 次</div><div class="explain" id="exp"></div>`;
+      $$('#gBody .mc').forEach(b => b.onclick = () => this.flip(+b.dataset.i, b));
+      say(name + '，翻開兩張找出一對！');
+    },
+    flip(i, b) {
+      const C = G.cur; if (G.lock || C.busy || b.classList.contains('up') || b.classList.contains('ok')) return;
+      b.classList.add('up'); C.open.push([i, b]); beep();
+      if (C.open.length < 2) return;
+      C.moves++; $('#mv').textContent = `翻了 ${C.moves} 次`;
+      const [[i1, b1], [i2, b2]] = C.open; C.open = [];
+      if (C.cards[i1].pid === C.cards[i2].pid) {
+        b1.classList.add('ok'); b2.classList.add('ok'); C.done++; beep('ok');
+        if (C.done === C.k) correct({ explain: `全部配對完成！只翻了 ${C.moves} 次${C.moves <= C.k + 3 ? '，記憶力超強！' : ''}` });
+      } else { C.busy = true; setTimeout(() => { b1.classList.remove('up'); b2.classList.remove('up'); C.busy = false; }, 850); }
+    },
+    read() { say(G.cur.name + '，翻開兩張找出一對！'); },
+    hint() { return '<p>按「我懂了」以後，全部的牌會翻開 2 秒，趕快記住位置！</p>'; },
+    afterHint() { const all = $$('#gBody .mc:not(.ok)'); all.forEach(b => b.classList.add('peek')); setTimeout(() => all.forEach(b => b.classList.remove('peek')), 2000); },
+    desc() { return '記憶翻牌'; }
+  },
+  idiom: {
+    title: '成語與閱讀',
+    setup() {},
+    question() {
+      const g = S.grade, type = pick(['mean', 'mean', 'fill', 'read', 'read']);
+      G.cur = { type };
+      const list = IDIOM.filter(x => x.g <= g);
+      if (type === 'mean') {
+        const t = draw('idiom', list), d = shuffle(IDIOM.filter(x => x !== t)).slice(0, 2).map(x => x.m);
+        Object.assign(G.cur, { t, q: `「${t.w}」是什麼意思？` });
+        mc({ head: `<div class="idiom">${t.w}</div>`, prompt: '這個成語是什麼意思？', opts: shuffle([t.m, ...d]).map(x => ({ label: x, val: x, cls: 'txt' })), ans: t.m, cls: 'col',
+          explain: `<b>${t.w}</b>：${t.m}${t.s ? `<br>📖 成語故事：${t.s}` : ''}` });
+      } else if (type === 'fill') {
+        const t = pick(list), i = rand(0, t.w.length - 1), ch = t.w[i];
+        const d = [...new Set(shuffle(IDIOM.filter(x => x !== t)).map(x => x.w[Math.min(i, x.w.length - 1)]).filter(c => c !== ch))].slice(0, 2);
+        Object.assign(G.cur, { t, q: '補上成語缺少的字' });
+        mc({ head: `<div class="idiom">${[...t.w].map((c, j) => j === i ? '<span class="blank">？</span>' : c).join('')}</div>`, prompt: '缺了哪一個字？', opts: shuffle([ch, ...d]).map(x => ({ label: x, val: x })), ans: ch,
+          explain: `<b>${t.w}</b>：${t.m}${t.s ? `<br>📖 ${t.s}` : ''}` });
+      } else {
+        const P = draw('read', READ.filter(x => x.g <= Math.max(g, 1))), [q, a, d] = pick(P.qs);
+        Object.assign(G.cur, { P, q });
+        mc({ head: `<div class="passage"><b>📜 ${P.title}</b><br>${P.p}</div>`, prompt: q, opts: shuffle([a, ...d]).map(x => ({ label: x, val: x, cls: 'txt' })), ans: a, cls: 'col', explain: `答案：${a}。仔細讀文章就找得到線索喔！` });
+      }
+      this.read();
+    },
+    read() { const c = G.cur; if (c.type === 'read') say(c.P.title + '。' + c.P.p + '。問題：' + c.q); else say(c.type === 'fill' ? '補上成語缺少的字' : c.q); },
+    hint() {
+      const c = G.cur;
+      if (c.type === 'read') return `<p>閱讀祕訣：</p><p>① 先看問題，知道要找什麼<br>② 回到文章裡找「關鍵字」<br>③ 答案通常就在那句話附近！</p>`;
+      if (c.type === 'fill') { say(c.t.w); return `<p>🔊 小小柒念給你聽：「${c.t.w}」</p><p>意思是：${c.t.m}</p>`; }
+      return `<p>拆開來看每個字的意思，再想想整句話。</p>${c.t.s ? `<p>📖 偷偷告訴你故事：${c.t.s}</p>` : `<p>想像一下，什麼時候會用到「${c.t.w}」這四個字？</p>`}`;
+    },
+    desc() { return G.cur.q; }
   }
+
 };
 
 
