@@ -505,7 +505,7 @@ function confetti() {
 /* ---------- 小睿闆（3D 載入前的畫像） ---------- */
 const RUI_SVG = `<svg class="rui-svg" viewBox="0 0 120 140"><circle cx="20" cy="68" r="8" fill="#f6cfaa"/><circle cx="100" cy="68" r="8" fill="#f6cfaa"/><circle cx="60" cy="66" r="42" fill="#ffdcbc"/><path d="M18 60Q20 20 60 20Q100 20 102 60Q92 40 74 42Q66 32 56 40Q40 36 30 48Q22 52 18 60Z" fill="#2b2b2b"/><ellipse cx="45" cy="64" rx="5" ry="6" fill="#2b2b2b"/><ellipse cx="75" cy="64" rx="5" ry="6" fill="#2b2b2b"/><circle cx="47" cy="62" r="1.6" fill="#fff"/><circle cx="77" cy="62" r="1.6" fill="#fff"/><ellipse cx="35" cy="78" rx="7" ry="4" fill="#ffaaa6" opacity=".6"/><ellipse cx="85" cy="78" rx="7" ry="4" fill="#ffaaa6" opacity=".6"/><path d="M47 80Q60 95 73 80Z" fill="#fff" stroke="#8a4a35" stroke-width="3" stroke-linejoin="round"/><path d="M40 85q2 3 4 0M76 85q2 3 4 0" stroke="#d38f6e" stroke-width="2" fill="none" stroke-linecap="round"/><rect x="34" y="106" width="52" height="34" rx="14" fill="#4d9de0"/></svg>`;
 $$('.rui-host').forEach(h => h.innerHTML = RUI_SVG);
-initRui('./assets/rui-game.glb?v=20261115-rui-cheeks2');
+initRui('./assets/rui-game.glb?v=20261125-shirt2');
 attachRui($('#homeRui'));
 $('#homeRui').addEventListener('click', () => { helloRui(); say('嗨！我是小睿闆，一起來冒險吧！'); });
 $('#greet').addEventListener('click', () => { helloRui(); say($('#greetText').textContent + $('#greetSub').textContent); });
